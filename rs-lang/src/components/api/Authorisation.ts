@@ -1,3 +1,5 @@
+import { storage } from '../storage/localstorage';
+
 class Authorisation {
   private baseUrl: string = 'https://rsslang.herokuapp.com';
   private usersUrl: string = `${this.baseUrl}/users`;
@@ -20,8 +22,11 @@ class Authorisation {
         console.log('Пользователь уже существует');
       } else {
         const userResponse = await response.json();
-        console.log(userResponse);
         let { id, name, email } = userResponse;
+        storage.idUser = id;
+        storage.name = name;
+        storage.email = email;
+        storage.save();
       }
     } catch (e) {
       console.log(e);
@@ -29,4 +34,4 @@ class Authorisation {
   }
 }
 let authorisation = new Authorisation();
-authorisation.createUser('Korol Lev5', 'hello6@user.com', 'Gfh1jkm_123');
+authorisation.createUser('Korol Lev6', 'hello7@user.com', 'Gfh1jkm_123');

@@ -1,0 +1,16 @@
+.create-button,
+.login-button {
+  width: 100%;
+  padding: 15px;
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  color: white;
+  text-transform: uppercase;
+  background: #4caf50;
+  -webkit-transition: all 0.3 ease;
+          transition: all 0.3 ease;
+  &:hover {
+    background: #43a047;
+  }
+}
+

@@ -19,9 +19,9 @@ class Authorisation {
         }),
       });
       if (response.status === 417) {
+        (document.querySelector('.create-error') as HTMLElement).innerHTML =
+          'User already exists';
         console.error('Пользователь уже существует');
-      } else if (response.status === 422) {
-        console.error('Неправильный пароль');
       }
     } catch (e) {
       console.log(e);
@@ -40,7 +40,12 @@ class Authorisation {
       }),
     });
     if (response.status === 404) {
+      (document.querySelector('.login-error') as HTMLElement).innerHTML =
+        "User doesn't exist";
       console.error('Пользователь не найден');
+    } else if (response.status === 403) {
+      (document.querySelector('.login-error') as HTMLElement).innerHTML =
+        'Wrong password';
     } else {
       const loginResponse = await response.json();
       console.log(loginResponse);

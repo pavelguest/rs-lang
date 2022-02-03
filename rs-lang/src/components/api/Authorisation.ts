@@ -19,19 +19,44 @@ class Authorisation {
         }),
       });
       if (response.status === 417) {
-        console.log('Пользователь уже существует');
-      } else {
-        const userResponse = await response.json();
-        let { id, name, email } = userResponse;
-        storage.idUser = id;
-        storage.name = name;
-        storage.email = email;
-        storage.save();
+        console.error('Пользователь уже существует');
+      } else if (response.status === 422) {
+        console.error('Неправильный пароль');
       }
     } catch (e) {
       console.log(e);
     }
   }
+  async login(email: string, password: string) {
+    const response = await fetch(`${this.baseUrl}/signin`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    });
+    if (response.status === 404) {
+      console.error('Пользователь не найден');
+    } else {
+      const loginResponse = await response.json();
+      console.log(loginResponse);
+      storage.token = loginResponse.token;
+      storage.refreshToken = loginResponse.refreshToken;
+      storage.idUser = loginResponse.userId;
+      storage.name = loginResponse.name;
+      storage.save();
+    }
+  }
+  logout() {
+    delete storage.idUser;
+    delete storage.name;
+    delete storage.token;
+    delete storage.refreshToken;
+    storage.save();
+  }
 }
-let authorisation = new Authorisation();
-authorisation.createUser('Korol Lev6', 'hello7@user.com', 'Gfh1jkm_123');
+export const authorisation = new Authorisation();

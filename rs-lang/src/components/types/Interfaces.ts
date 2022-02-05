@@ -3,4 +3,5 @@ export interface ILocalStorage {
   name: string;
   token: string;
   refreshToken: string;
+  isAuthorised: boolean;
 }

@@ -21,7 +21,6 @@ class Authorisation {
       if (response.status === 417) {
         (document.querySelector('.create-error') as HTMLElement).innerHTML =
           'User already exists';
-        console.error('Пользователь уже существует');
       }
     } catch (e) {
       console.log(e);
@@ -48,11 +47,11 @@ class Authorisation {
         'Wrong password';
     } else {
       const loginResponse = await response.json();
-      console.log(loginResponse);
       storage.token = loginResponse.token;
       storage.refreshToken = loginResponse.refreshToken;
       storage.idUser = loginResponse.userId;
       storage.name = loginResponse.name;
+      storage.isAuthorised = true;
       storage.save();
     }
   }
@@ -61,6 +60,7 @@ class Authorisation {
     delete storage.name;
     delete storage.token;
     delete storage.refreshToken;
+    storage.isAuthorised = false;
     storage.save();
   }
 }

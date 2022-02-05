@@ -1,8 +1,8 @@
 import { CreateControls } from '../buttons/CreateControls';
 import { authorisation } from '../api/Authorisation';
 
-class renderLoginPopup {
-  renderLoginForm() {
+class RenderLoginPopup {
+  renderLoginForm(container:HTMLElement) {
     const popup = document.createElement('div');
     popup.classList.add('popup-login');
     const wrapper = document.createElement('div');
@@ -29,15 +29,15 @@ class renderLoginPopup {
     formLogin.append(pLogin);
     aLogin.addEventListener('click', () => {
       popup.remove();
-      document.body.append(this.renderCreateForm());
+      document.body.append(this.RenderCreateForm());
     });
     formLogin.addEventListener('click', () => {
       (document.querySelector('.login-error') as HTMLElement).innerHTML = '';
     });
     formLogin.addEventListener('submit', this.login);
-    return popup;
+    container.append(popup);
   }
-  renderCreateForm() {
+  RenderCreateForm() {
     const popup = document.createElement('div');
     popup.classList.add('popup-login');
     const wrapper = document.createElement('div');
@@ -66,7 +66,7 @@ class renderLoginPopup {
     formCreate.append(pCreate);
     aCreate.addEventListener('click', () => {
       popup.remove();
-      document.body.append(this.renderLoginForm());
+      this.renderLoginForm(document.body);
     });
     formCreate.addEventListener('click', () => {
       (document.querySelector('.create-error') as HTMLElement).innerHTML = '';
@@ -93,5 +93,4 @@ class renderLoginPopup {
     authorisation.createUser(name, email, password);
   }
 }
-const popupLogin = new renderLoginPopup();
-document.body.append(popupLogin.renderLoginForm());
+export const renderLoginPopup = new RenderLoginPopup()

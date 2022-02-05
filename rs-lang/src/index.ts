@@ -1,12 +1,14 @@
 import './scss/main.scss';
 
+import './components/types/types';
 import './components/storage/state';
 
-import './components/api/WorldsRepository';
-import './components/types/Interfaces';
-import './components/api/Authorisation';
+import './components/games/sprint';
+
+import './components/services/WordsRepository';
+import './components/services/AuthorisationRepository';
 import './components/storage/localstorage';
-import './components/buttons/CreateControls';
+import './components/buttons/Button';
 import './components/render/renderLoginPopup';
 import './components/render/startingPage';
 import './components/buttons/startingLoginButtons';

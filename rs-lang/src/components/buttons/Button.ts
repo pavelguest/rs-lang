@@ -1,4 +1,4 @@
-export class CreateControls {
+export class Button {
   callback: (event: MouseEvent) => void;
   buttonClass: string;
   text: string;

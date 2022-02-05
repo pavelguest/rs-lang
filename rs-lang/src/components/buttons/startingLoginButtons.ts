@@ -1,19 +1,19 @@
-import { CreateControls } from './CreateControls';
+import { Button } from '../buttons/Button';
 import { renderLoginPopup } from '../render/renderLoginPopup';
 import { storage } from '../storage/localstorage';
-import { authorisation } from '../api/Authorisation';
+import { authorisation } from '../services/AuthorisationRepository';
 
 class StartingLoginButton {
   render() {
     let button = null as HTMLElement | null;
     if (!storage.isAuthorised) {
-      button = new CreateControls(
+      button = new Button(
         'starting-page__login',
         'Войти',
         this.openLoginPopup.bind(this)
       ).render();
     } else {
-      button = new CreateControls(
+      button = new Button(
         'starting-page__login',
         'Выйти',
         authorisation.logout.bind(this)

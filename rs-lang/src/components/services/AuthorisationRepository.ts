@@ -1,6 +1,6 @@
 import { storage } from '../storage/localstorage';
 
-class Authorisation {
+class AuthorisationRepository {
   private baseUrl: string = 'https://rsslang.herokuapp.com';
   private usersUrl: string = `${this.baseUrl}/users`;
 
@@ -64,4 +64,4 @@ class Authorisation {
     storage.save();
   }
 }
-export const authorisation = new Authorisation();
+export const authorisation = new AuthorisationRepository();

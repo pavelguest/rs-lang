@@ -1,4 +1,4 @@
-import { ILocalStorage } from '../types/Interfaces';
+import { ILocalStorage } from '../types/types';
 class LocalStorage {
   idUser?: string;
   name?: string;

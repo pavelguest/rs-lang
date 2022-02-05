@@ -1,8 +1,8 @@
-import { CreateControls } from '../buttons/CreateControls';
-import { authorisation } from '../api/Authorisation';
+import { Button } from '../buttons/Button';
+import { authorisation } from '../services/AuthorisationRepository';
 
 class RenderLoginPopup {
-  renderLoginForm(container:HTMLElement) {
+  renderLoginForm(container: HTMLElement) {
     const popup = document.createElement('div');
     popup.classList.add('popup-login');
     const wrapper = document.createElement('div');
@@ -93,4 +93,4 @@ class RenderLoginPopup {
     authorisation.createUser(name, email, password);
   }
 }
-export const renderLoginPopup = new RenderLoginPopup()
+export const renderLoginPopup = new RenderLoginPopup();

@@ -1,4 +1,6 @@
-class WorldsRepository {
+import { state } from '../storage/state';
+
+class WordsRepository {
   baseUrl: string = 'https://rsslang.herokuapp.com';
   words: string = `${this.baseUrl}/words`;
 
@@ -7,6 +9,7 @@ class WorldsRepository {
       await fetch(`${this.words}?page=${page}&group=${group}`)
     ).json();
     console.log(res);
+    state.wordsArr = res;
     return res;
   }
   async get(id: number) {
@@ -16,4 +19,4 @@ class WorldsRepository {
   }
 }
 
-const worldsRepository = new WorldsRepository();
+export const worldsRepository = new WordsRepository();

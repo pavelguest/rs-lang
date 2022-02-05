@@ -1,5 +1,5 @@
-import { CreateControls } from '../buttons/CreateControls';
-import { authorisation } from '../api/Authorisation';
+import { Button } from '../buttons/Button';
+import { authorisation } from '../services/Authorisation';
 
 class renderLoginPopup {
   renderLoginForm() {

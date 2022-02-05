@@ -1,4 +1,4 @@
-import { worldsRepository } from '../../api/WorldsRepository';
+import { worldsRepository } from '../../services/WorldsRepository';
 import Sprint from './Sprint';
 
 class SprintView {
@@ -49,5 +49,3 @@ class SprintView {
 }
 
 export const sprintView = new SprintView();
-
-sprintView.runGame();

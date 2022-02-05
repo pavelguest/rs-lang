@@ -1,9 +1,12 @@
 import './scss/main.scss';
 
 import './components/types/types';
-import './components/app/state';
+import './components/storage/state';
 
-import './components/api/WorldsRepository';
+import './components/games/sprint';
 
-import './components/games/sprint/Sprint';
-import './components/games/sprint/SprintView';
+import './components/services/WorldsRepository';
+import './components/services/Authorisation';
+import './components/storage/localstorage';
+import './components/buttons/Button';
+import './components/render/renderLoginPopup';

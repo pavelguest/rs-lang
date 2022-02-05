@@ -1,4 +1,4 @@
-interface IWords {
+export interface IWords {
   id: string;
   group: number;
   page: number;
@@ -15,8 +15,13 @@ interface IWords {
   textExampleTranslate: string;
 }
 
-interface IState {
+export interface IState {
   wordsArr: IWords[];
 }
 
-export { IWords, IState };
+export interface ILocalStorage {
+  idUser: string;
+  name: string;
+  token: string;
+  refreshToken: string;
+}

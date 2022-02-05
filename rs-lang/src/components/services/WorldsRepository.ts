@@ -1,5 +1,4 @@
-import { state } from '../app/state';
-import { sprintView } from '../games/sprint/SprintView';
+import { state } from '../storage/state';
 
 class WorldsRepository {
   baseUrl: string = 'https://rsslang.herokuapp.com';

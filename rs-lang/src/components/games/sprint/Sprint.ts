@@ -1,4 +1,4 @@
-import { state } from '../../app/state';
+import { state } from '../../storage/state';
 import { getRandomInRange } from '../../helpers/helpers';
 import { IWords } from '../../types/types';
 

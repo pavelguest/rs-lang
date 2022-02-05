@@ -1,6 +1,6 @@
 import { state } from '../storage/state';
 
-class WorldsRepository {
+class WordsRepository {
   baseUrl: string = 'https://rsslang.herokuapp.com';
   words: string = `${this.baseUrl}/words`;
 
@@ -19,4 +19,4 @@ class WorldsRepository {
   }
 }
 
-export const worldsRepository = new WorldsRepository();
+export const worldsRepository = new WordsRepository();

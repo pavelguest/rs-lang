@@ -5,7 +5,7 @@ import './components/storage/state';
 
 import './components/games/sprint';
 
-import './components/services/WorldsRepository';
+import './components/services/WordsRepository';
 import './components/services/Authorisation';
 import './components/storage/localstorage';
 import './components/buttons/Button';

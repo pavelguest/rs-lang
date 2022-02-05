@@ -1,4 +1,4 @@
-import { worldsRepository } from '../../services/WorldsRepository';
+import { worldsRepository } from '../../services/WordsRepository';
 import Sprint from './Sprint';
 
 class SprintView {

@@ -25,6 +25,15 @@
     cursor: pointer;
   }
 }
+.active-page::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 120%;
+  border-bottom: 2px solid black;
+  transform: translate(-10%, 0);
+}
 .sub-menu__list {
   position: absolute;
   top: 15px;

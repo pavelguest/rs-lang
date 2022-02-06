@@ -15,6 +15,14 @@ class LocalStorage {
   save() {
     localStorage.setItem('rsLangTeam26', JSON.stringify(this));
   }
+  logout() {
+    delete this.idUser;
+    delete this.name;
+    delete this.token;
+    delete this.refreshToken;
+    this.isAuthorised = false;
+    this.save();
+  }
 }
 export const storage = new LocalStorage(
   JSON.parse(localStorage.getItem('rsLangTeam26') || '{}')

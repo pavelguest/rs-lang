@@ -17,10 +17,10 @@
   padding: 7px 20px;
   font-weight: bold;
   color: white;
-  background: #4887ef;
-  border-radius: 3px;
-  :hover {
-    box-shadow: 1px 1px 5px #999999;
+  background: #4caf50;
+
+  &:hover {
+    background: #43a047;
   }
 }
 

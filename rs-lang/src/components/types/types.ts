@@ -16,6 +16,7 @@ export interface IWords {
 }
 
 export interface IState {
+  currentPage: string;
   wordsArr: IWords[];
 }
 
@@ -24,4 +25,5 @@ export interface ILocalStorage {
   name: string;
   token: string;
   refreshToken: string;
+  isAuthorised: boolean;
 }

@@ -23,5 +23,54 @@
     background: #43a047;
   }
 }
+.game-lvl__button {
+  padding: 10px 20px;
+  color: #ffffff;
+  &:nth-child(1) {
+    background-color: #4caf50;
+    &:hover {
+      background-color: #43a047;
+    }
+  }
+  &:nth-child(2) {
+    background-color: #e5e765;
+    &:hover {
+      background-color: #d3d159;
+    }
+  }
+  &:nth-child(3) {
+    background-color: #60bee4;
+    &:hover {
+      background-color: #59afd1;
+    }
+  }
+  &:nth-child(4) {
+    background-color: #774caf;
+    &:hover {
+      background-color: #6a449c;
+    }
+  }
+  &:nth-child(5) {
+    background-color: #af4ca7;
+    &:hover {
+      background-color: #96418f;
+    }
+  }
+  &:nth-child(6) {
+    background-color: #af4c54;
+    &:hover {
+      background-color: #923e45;
+    }
+  }
+}
+
+.game__button-back {
+  padding: 10px;
+  color: #ffffff;
+  background-color: #dd616c;
+  &:hover {
+    background-color: #f76e79;
+  }
+}
 
 

@@ -2,6 +2,7 @@ import { state } from '../storage/state';
 import { startingPage } from './startingPage';
 import { bookPage } from './bookPage';
 import { statsPage } from './statsPage';
+import { gamePreload } from './GamePreload';
 class Header {
   render() {
     const header = document.createElement('header');
@@ -20,8 +21,8 @@ class Header {
                   <a href="#">Игры</a>
                   <span class="navigation__arrow arrow"></span>
                   <ul class="sub-menu__list">
-                    <li><a class="sub-menu__link" href="#">Аудиовызов</a></li>
-                    <li><a class="sub-menu__link" href="#">Спринт</a></li>
+                    <li class="audio-call__link"><a class="sub-menu__link" href="#">Аудиовызов</a></li>
+                    <li class="sprint__link"><a class="sub-menu__link" href="#">Спринт</a></li>
                   </ul>
                 </li>
               </ul>
@@ -52,6 +53,18 @@ class Header {
         this.deleteActiveClass();
         state.currentPage = 'stats';
         statsPage.render();
+      });
+    document.querySelector('.sprint__link')?.addEventListener('click', () => {
+      if (state.currentPage === 'main') {
+        gamePreload.render('sprint');
+      }
+    });
+    document
+      .querySelector('.audio-call__link')
+      ?.addEventListener('click', () => {
+        if (state.currentPage === 'main') {
+          gamePreload.render('audiocall');
+        }
       });
   }
   deleteActiveClass() {

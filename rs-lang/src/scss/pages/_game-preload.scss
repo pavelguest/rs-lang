@@ -1,0 +1,21 @@
+.game-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.game__title {
+  margin-bottom: 20px;
+  font-size: 50px;
+  text-transform: uppercase;
+}
+.game-lvl__subtitle {
+  margin-bottom: 10px;
+  font-size: 30px;
+}
+.game-lvl__buttons-container {
+  display: flex;
+  margin-bottom: 30px;
+  column-gap: 20px;
+}

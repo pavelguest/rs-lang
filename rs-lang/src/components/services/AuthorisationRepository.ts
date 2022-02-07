@@ -51,9 +51,9 @@ class AuthorisationRepository {
           }
         );
         const result = await response.json();
-        const { token, refreshtoken } = result;
+        const { token, refreshToken } = result;
         storage.token = token;
-        storage.refreshToken = refreshtoken;
+        storage.refreshToken = refreshToken;
         storage.tokenDateExpiration = Date.now() + 4 * 60 * 60 * 1000;
         storage.save();
       } catch (error) {

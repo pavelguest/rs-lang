@@ -54,7 +54,7 @@ class AuthorisationRepository {
         const { token, refreshtoken } = result;
         storage.token = token;
         storage.refreshToken = refreshtoken;
-        storage.tokenDateExpiration = Date.now();
+        storage.tokenDateExpiration = Date.now() + 4 * 60 * 60 * 1000;
         storage.save();
       } catch (error) {
         console.log('error in refreshing');

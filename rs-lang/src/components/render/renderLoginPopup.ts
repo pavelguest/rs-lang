@@ -109,6 +109,7 @@ class RenderLoginPopup {
         storage.idUser = loginResponse.userId;
         storage.name = loginResponse.name;
         storage.isAuthorised = true;
+        storage.tokenDateExpiration = Date.now() + 4 * 60 * 60 * 1000;
         storage.save();
         startingPage.render();
       } else if (response.status === 404 || response.status === 403) {

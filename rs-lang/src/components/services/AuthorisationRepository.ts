@@ -1,4 +1,5 @@
 import { storage } from '../storage/localstorage';
+import { JSONObject } from '../types/types';
 
 class AuthorisationRepository {
   private baseUrl: string = 'https://rsslang.herokuapp.com';
@@ -33,6 +34,30 @@ class AuthorisationRepository {
   }
   logout() {
     storage.logout();
+  }
+  async fetchWithRefreshingToken(url: string, options: JSONObject) {
+    if (!options.headers) {
+      options.headers = {};
+    }
+    if (Date.now() > storage.tokenDateExpiration) {
+      try {
+        const response = await fetch(
+          `${this.usersUrl}/${storage.idUser}/tokens`,
+          {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${storage.refreshToken}`,
+            },
+          }
+        );
+        const result = await response.json();
+        console.log(result);
+      } catch (error) {
+        console.log('error in refreshing');
+      }
+    }
+    options.headers.Authorization = `Bearer ${storage.token}`;
+    return fetch(url, options);
   }
 }
 export const authorisation = new AuthorisationRepository();

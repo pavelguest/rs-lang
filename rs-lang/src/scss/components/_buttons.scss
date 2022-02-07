@@ -73,4 +73,28 @@
   }
 }
 
+.bookpage-sprint__button,
+.bookpage-audiochallenge__button {
+  position: relative;
+  height: 45px;
+  padding-right: 10px;
+  padding-left: 50px;
+  font-size: 20px;
+  & span {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    display: block;
+    width: 35px;
+    height: 35px;
+  }
+}
+.bookpage-sprint__button span {
+  background: url("./../images/sprint-icon.svg");
+  background-size: 100% 100%;
+}
+.bookpage-audiochallenge__button span {
+  background: url("./../images/audiochallenge-icon.svg");
+  background-size: 100% 100%;
+}
 

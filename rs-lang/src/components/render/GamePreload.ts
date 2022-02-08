@@ -1,4 +1,5 @@
 import { Button } from '../buttons/Button';
+import sprintViewWrapper from '../games/sprint';
 import { worldsRepository } from '../services/WordsRepository';
 import { startingPage } from './startingPage';
 
@@ -44,8 +45,11 @@ class GamePreload {
     gameWrapper.append(lvlButtonsContainer);
     gameWrapper.append(buttonBack);
   }
-  selectLvlGame(page: number, lvl: number, typeGame: string) {
-    worldsRepository.all(page, lvl);
+  async selectLvlGame(page: number, lvl: number, typeGame: string) {
+    await worldsRepository.all(page, lvl);
+    if (typeGame === 'sprint') {
+      sprintViewWrapper.render();
+    }
   }
   backGame() {
     startingPage.render();

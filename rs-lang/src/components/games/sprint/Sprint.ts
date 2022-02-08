@@ -1,12 +1,19 @@
 import { state } from '../../storage/state';
 import { getRandomInRange } from '../../helpers/helpers';
 import { IWords } from '../../types/types';
+import {
+  rightAnswerSound,
+  soundPlay,
+  victoryGameSound,
+  wrongAnswerSound,
+} from '../../helpers/sounds';
 
 class Sprint {
   wordsArr: IWords[] = [];
   currentQuestion: number = 0;
   score: number = 0;
   generalScore: number = 0;
+  countTimerGame: number = 59;
   question: string = '';
   answerRight: string = '';
   answer: string = '';
@@ -34,14 +41,39 @@ class Sprint {
     this.generalScore += 10;
   }
   isAnswerRight(isRight: boolean) {
-    console.log(`question: ${this.question}`);
-    console.log(`answer: ${this.answer}`, `answerRight: ${this.answerRight}`);
-
     if (this.answer === this.answerRight && isRight) {
+      this.score += 1;
       this.setScore();
+      soundPlay(rightAnswerSound);
     } else if (this.answer !== this.answerRight && !isRight) {
+      this.score += 1;
       this.setScore();
+      soundPlay(rightAnswerSound);
+    } else {
+      soundPlay(wrongAnswerSound);
+      this.score = 0;
     }
+    if (this.score > 3) {
+      this.score = 0;
+    }
+  }
+  startGameTimer() {
+    const interval = setInterval(() => {
+      const timer = document.querySelector('.timer-container');
+      if (this.countTimerGame === 0) {
+        clearInterval(interval);
+        this.countTimerGame = 59;
+        // обнуление пагинации
+        this.score = 0;
+        victoryGameSound.play();
+        document.querySelector('.sprint-wrapper')!.innerHTML = '';
+      }
+      if (timer) {
+        timer.textContent = `${this.countTimerGame}`;
+      }
+      this.countTimerGame -= 1;
+    }, 1000);
+    return () => clearInterval(interval);
   }
 }
 

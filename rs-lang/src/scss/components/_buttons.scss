@@ -168,3 +168,10 @@
     background-size: contain;
   }
 }
+.word__audio {
+  display: block;
+  width: 25px;
+  height: 25px;
+  background: url("./../images/volume.svg");
+  background-size: 100% 100%;
+}

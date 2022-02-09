@@ -3,6 +3,9 @@ import { startingLoginButton } from '../buttons/startingLoginButtons';
 import { pagination } from './pagination';
 import { gamesNavButtons } from '../buttons/gamesNavButtons';
 import { difficultyButtons } from '../buttons/difficultyButtons';
+import { CardWord } from './cardWord';
+import { worldsRepository } from '../services/WordsRepository';
+import { IWords } from '../types/types';
 class BookPage {
   render() {
     document.body.innerHTML = '';

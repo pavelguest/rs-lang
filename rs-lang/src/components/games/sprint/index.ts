@@ -1,3 +1,3 @@
-import { sprintView } from './SprintView';
+import { sprintViewWrapper } from './SprintViewWrapper';
 
-export default sprintView;
+export default sprintViewWrapper;

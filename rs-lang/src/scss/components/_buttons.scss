@@ -109,4 +109,62 @@
   height: 45px;
   font-size: 20px;
   text-transform: uppercase;
+  .sprint__close-game {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+    font-size: 40px;
+    background: url("./../images/popup__close.svg") no-repeat;
+    background-size: contain;
+    &:hover {
+      background: url("./../images/close.svg") no-repeat;
+    }
+  }
+  .false-answer,
+  .true-answer {
+    width: 140px;
+    padding: 13px 0;
+    font-size: 20px;
+  }
+
+  .false-answer {
+    background-color: #af4c54;
+    &:hover {
+      background-color: #923e45;
+    }
+  }
+
+  .true-answer {
+    background-color: #43a047;
+    &:hover {
+      background-color: #4caf50;
+    }
+  }
+  .settings-buttons__fullscreen,
+  .settings-buttons__volume {
+    width: 40px;
+    height: 40px;
+    &:hover {
+      width: 45px;
+      height: 45px;
+    }
+  }
+  .settings-buttons__fullscreen {
+    background: url("./../images/enter-fullscreen.svg") no-repeat;
+    background-size: contain;
+  }
+  .active-fullscreen {
+    background: url("./../images/exit-fullscreen.svg") no-repeat;
+    background-size: contain;
+  }
+  .settings-buttons__volume {
+    background: url("./../images/volume.svg") no-repeat;
+    background-size: contain;
+  }
+  .active-volume {
+    background: url("./../images/mute.svg")no-repeat;
+    background-size: contain;
+  }
 }

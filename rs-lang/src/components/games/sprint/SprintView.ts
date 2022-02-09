@@ -1,51 +1,91 @@
-import { worldsRepository } from '../../services/WordsRepository';
+import { Button } from '../../buttons/Button';
+import { victoryGameSound } from '../../helpers/sounds';
 import Sprint from './Sprint';
 
 class SprintView {
   sprint = new Sprint();
+  stopGameTimer: (() => void) | undefined;
   async runGame() {
-    await worldsRepository.all();
     this.sprint.arr();
-    this.render();
+    this.stopGameTimer = this.sprint.startGameTimer();
   }
   render() {
     const sprintContainer = document.createElement('div');
     sprintContainer.classList.add('sprint-container');
 
-    const scoreContainer = document.createElement('div');
-    scoreContainer.textContent = `${this.sprint.generalScore}`;
+    const scoreDiv = document.createElement('div');
+    scoreDiv.textContent = `${this.sprint.generalScore}`;
+    scoreDiv.classList.add('sprint__score');
+    const paginationContainer = document.createElement('div');
+    paginationContainer.classList.add('sprint__pagination-container');
+
+    for (let i = 0; i < 3; i++) {
+      const answerPagination = document.createElement('div');
+      answerPagination.classList.add('sprint__answer-pagination');
+      paginationContainer.append(answerPagination);
+    }
 
     const gameQuestion = document.createElement('div');
-    gameQuestion.classList.add('game-question');
+    gameQuestion.classList.add('sprint__question');
 
     const gameAnswer = document.createElement('div');
-    gameAnswer.classList.add('game-answer');
+    gameAnswer.classList.add('sprint__answer');
 
-    const trueAnswer = document.createElement('button');
-    const falseAnswer = document.createElement('button');
+    const answerButtonsContainer = document.createElement('div');
+    answerButtonsContainer.classList.add('answer-buttons__container');
 
-    trueAnswer.addEventListener('click', () => {
-      this.sprint.isAnswerRight(true);
-      this.render();
-    });
-    falseAnswer.addEventListener('click', () => {
-      this.sprint.isAnswerRight(false);
-      this.render();
-    });
-
-    trueAnswer.textContent = `yes`;
-    falseAnswer.textContent = `no`;
+    const falseAnswer = new Button(
+      'false-answer',
+      'неверно',
+      this.isFalseAnswer.bind(this)
+    ).render();
+    const trueAnswer = new Button(
+      'true-answer',
+      'верно',
+      this.isTrueAnswer.bind(this)
+    ).render();
 
     gameQuestion.textContent = `${this.sprint.currQuestion()}`;
     gameAnswer.textContent = `${this.sprint.randomAnswer()}`;
 
-    sprintContainer.append(scoreContainer);
-    sprintContainer.append(gameQuestion);
-    sprintContainer.append(gameAnswer);
-    sprintContainer.append(trueAnswer);
-    sprintContainer.append(falseAnswer);
-    document.body.append(sprintContainer);
+    sprintContainer.append(
+      scoreDiv,
+      paginationContainer,
+      gameQuestion,
+      gameAnswer,
+      answerButtonsContainer
+    );
+    answerButtonsContainer.append(falseAnswer, trueAnswer);
+    document.querySelector('.sprint-wrapper')!.append(sprintContainer);
+    document
+      .querySelectorAll('.sprint__answer-pagination')
+      .forEach((elem, index) => {
+        if (index < this.sprint.score && elem instanceof HTMLElement) {
+          elem.style.background = '#60bee4';
+        }
+      });
+  }
+  isTrueAnswer() {
+    this.sprint.isAnswerRight(true);
+    document.querySelector('.sprint-container')!.remove();
+    this.render();
+    this.isEndQuestionsGame();
+  }
+  isFalseAnswer() {
+    this.sprint.isAnswerRight(false);
+    document.querySelector('.sprint-container')!.remove();
+    this.render();
+    this.isEndQuestionsGame();
+  }
+  isEndQuestionsGame() {
+    if (this.sprint.currentQuestion === 20) {
+      document.querySelector('.sprint-wrapper')!.innerHTML = '';
+      this.sprint.currentQuestion = 0;
+      // обнуление пагинации
+      this.sprint.score = 0;
+      victoryGameSound.play();
+    }
   }
 }
 
-export const sprintView = new SprintView();
+export default SprintView;

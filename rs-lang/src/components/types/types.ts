@@ -27,4 +27,12 @@ export interface ILocalStorage {
   token: string;
   refreshToken: string;
   isAuthorised: boolean;
+  tokenExpirationDate: number;
+}
+
+type JSONValue = { [x: string]: string };
+
+export interface JSONObject {
+  [x: string]: JSONValue;
+  headers: JSONValue;
 }

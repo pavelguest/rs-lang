@@ -1,6 +1,10 @@
 export const rightAnswerSound = new Audio();
 export const wrongAnswerSound = new Audio();
 export const victoryGameSound = new Audio();
+
+export const wordAudio = new Audio();
+export const meaningAudio = new Audio();
+export const exampleAudio = new Audio();
 rightAnswerSound.src = '../../audio/correct-answer-sound.mp3';
 wrongAnswerSound.src = '../../audio/incorrect-answer-sound.mp3';
 victoryGameSound.src = '../../audio/pravil-nyy-otvet-krasavchiki.mp3';

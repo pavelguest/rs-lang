@@ -32,6 +32,22 @@ export interface ILocalStorage {
 type JSONValue = { [x: string]: string };
 
 export interface JSONObject {
-  [x: string]: JSONValue;
-  headers: JSONValue;
+  [x: string]: JSONValue | string;
+}
+
+export interface ICardWord {
+  id: 'string';
+  group: 'string';
+  page: 'string';
+  word: 'string';
+  image: 'string';
+  audio: 'string';
+  audioMeaning: 'string';
+  audioExample: 'string';
+  textMeaning: 'string';
+  textExample: 'string';
+  transcription: 'string';
+  wordTranslate: 'string';
+  textMeaningTranslate: 'string';
+  textExampleTranslate: 'string';
 }

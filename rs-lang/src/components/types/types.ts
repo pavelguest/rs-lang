@@ -17,7 +17,8 @@ export interface IWords {
 
 export interface IState {
   currentPage: string;
-  group: string;
+  group: number;
+  page: number;
   wordsArr: IWords[];
 }
 

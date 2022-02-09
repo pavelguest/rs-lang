@@ -8,32 +8,32 @@ class DifficultyButtons {
     const buttonA1 = new Button(
       'button-difficulty',
       'a1',
-      this.changeDifficulty.bind(this, '0')
+      this.changeDifficulty.bind(this, 0)
     ).render();
     const buttonA2 = new Button(
       'button-difficulty',
       'a2',
-      this.changeDifficulty.bind(this, '1')
+      this.changeDifficulty.bind(this, 1)
     ).render();
     const buttonB1 = new Button(
       'button-difficulty',
       'b1',
-      this.changeDifficulty.bind(this, '2')
+      this.changeDifficulty.bind(this, 2)
     ).render();
     const buttonB2 = new Button(
       'button-difficulty',
       'b2',
-      this.changeDifficulty.bind(this, '3')
+      this.changeDifficulty.bind(this, 3)
     ).render();
     const buttonC1 = new Button(
       'button-difficulty',
       'c1',
-      this.changeDifficulty.bind(this, '4')
+      this.changeDifficulty.bind(this, 4)
     ).render();
     const buttonC2 = new Button(
       'button-difficulty',
       'c2',
-      this.changeDifficulty.bind(this, '5')
+      this.changeDifficulty.bind(this, 5)
     ).render();
     difficultyButtons.append(
       buttonA1,
@@ -45,7 +45,7 @@ class DifficultyButtons {
     );
     return difficultyButtons;
   }
-  changeDifficulty(group: string) {
+  changeDifficulty(group: number) {
     state.group = group;
     bookPage.render();
   }

@@ -6,8 +6,9 @@ import { difficultyButtons } from '../buttons/difficultyButtons';
 import { CardWord } from './cardWord';
 import { worldsRepository } from '../services/WordsRepository';
 import { IWords } from '../types/types';
+import { state } from '../storage/state';
 class BookPage {
-  render() {
+  async render() {
     document.body.innerHTML = '';
     document.body.append(header.render());
     header.addlisteners();
@@ -36,8 +37,22 @@ class BookPage {
       gamesNavButtons.renderSprint(),
       gamesNavButtons.renderAudioChallenge()
     );
-
     wrapper.append(navBook);
+    const cardsWrapper = document.createElement('div');
+    cardsWrapper.classList.add('cards-wrapper');
+    wrapper.append(cardsWrapper);
+    const array = await worldsRepository.all(state.page, state.group);
+    array.forEach((word: IWords) => {
+      const wordObj = new CardWord(word);
+      cardsWrapper.append(wordObj.render());
+    });
+    /*  worldsRepository.all(state).then((result: IWords[]) => {
+      result.forEach((word) => {
+        const wordObj = new CardWord(word);
+        cardsWrapper.append(wordObj.render());
+      });
+    }); */
+
     pagination.addListeners();
   }
   renderMain() {}

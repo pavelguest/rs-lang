@@ -17,3 +17,44 @@
   align-items: center;
   column-gap: 5px;
 }
+.cards-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
+  column-gap: 20px;
+
+  row-gap: 20px;
+}
+.card-word {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  width: calc(100%/2 - 10px);
+  column-gap: 20px;
+  box-shadow: 0 0 20px 0 rgb(0 0 0 / 20%), 0 5px 5px 0 rgb(0 0 0 / 24%);
+}
+.card-word__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  padding: 20px;
+
+  row-gap: 30px;
+}
+.card-word__image img {
+  width: 240px;
+  height: 281px;
+  padding: 20px;
+
+  object-fit: cover;
+  object-position: center center;
+}
+.word-wrapper {
+  display: flex;
+  column-gap: 20px;
+}

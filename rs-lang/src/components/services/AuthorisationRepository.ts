@@ -51,7 +51,11 @@ class AuthorisationRepository {
           }
         );
         const result = await response.json();
-        console.log(result);
+        const { token, refreshtoken } = result;
+        storage.token = token;
+        storage.refreshToken = refreshtoken;
+        storage.tokenDateExpiration = Date.now();
+        storage.save();
       } catch (error) {
         console.log('error in refreshing');
       }

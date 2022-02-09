@@ -1,3 +1,9 @@
+.button {
+  position: relative;
+  &:active {
+    transform: translate(0,2px);
+  }
+}
 .create-button,
 .login-button {
   width: 100%;
@@ -98,3 +104,9 @@
   background-size: 100% 100%;
 }
 
+.button-difficulty {
+  width: 45px;
+  height: 45px;
+  font-size: 20px;
+  text-transform: uppercase;
+}

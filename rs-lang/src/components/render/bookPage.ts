@@ -2,6 +2,7 @@ import { header } from './header';
 import { startingLoginButton } from '../buttons/startingLoginButtons';
 import { pagination } from './pagination';
 import { gamesNavButtons } from '../buttons/gamesNavButtons';
+import { difficultyButtons } from '../buttons/difficultyButtons';
 class BookPage {
   render() {
     document.body.innerHTML = '';
@@ -26,10 +27,12 @@ class BookPage {
     const navButtons = document.createElement('div');
     navButtons.classList.add('games-buttons_wrapper');
 
-    navBook.append(pagination.render());
-    navBook.append(navButtons);
-    navButtons.append(gamesNavButtons.renderSprint());
-    navButtons.append(gamesNavButtons.renderAudioChallenge());
+    navBook.append(difficultyButtons.render(), pagination.render(), navButtons);
+
+    navButtons.append(
+      gamesNavButtons.renderSprint(),
+      gamesNavButtons.renderAudioChallenge()
+    );
 
     wrapper.append(navBook);
     pagination.addListeners();

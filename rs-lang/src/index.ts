@@ -13,3 +13,4 @@ import './components/render/renderLoginPopup';
 import './components/render/startingPage';
 import './components/buttons/startingLoginButtons';
 import './components/buttons/gamesNavButtons';
+import './components/buttons/difficultyButtons';

@@ -5,44 +5,20 @@ class DifficultyButtons {
   render() {
     const difficultyButtons = document.createElement('div');
     difficultyButtons.classList.add('nav-book__difficulties');
-    const buttonA1 = new Button(
-      'button-difficulty',
-      'a1',
-      this.changeDifficulty.bind(this, 0)
-    ).render();
-    const buttonA2 = new Button(
-      'button-difficulty',
-      'a2',
-      this.changeDifficulty.bind(this, 1)
-    ).render();
-    const buttonB1 = new Button(
-      'button-difficulty',
-      'b1',
-      this.changeDifficulty.bind(this, 2)
-    ).render();
-    const buttonB2 = new Button(
-      'button-difficulty',
-      'b2',
-      this.changeDifficulty.bind(this, 3)
-    ).render();
-    const buttonC1 = new Button(
-      'button-difficulty',
-      'c1',
-      this.changeDifficulty.bind(this, 4)
-    ).render();
-    const buttonC2 = new Button(
-      'button-difficulty',
-      'c2',
-      this.changeDifficulty.bind(this, 5)
-    ).render();
-    difficultyButtons.append(
-      buttonA1,
-      buttonA2,
-      buttonB1,
-      buttonB2,
-      buttonC1,
-      buttonC2
+    const props: [string, () => void][] = [
+      ['a1', this.changeDifficulty.bind(this, 0)],
+      ['a2', this.changeDifficulty.bind(this, 1)],
+      ['b1', this.changeDifficulty.bind(this, 2)],
+      ['b2', this.changeDifficulty.bind(this, 3)],
+      ['c1', this.changeDifficulty.bind(this, 4)],
+      ['c2', this.changeDifficulty.bind(this, 5)],
+    ];
+    props.forEach((property) =>
+      difficultyButtons.append(
+        new Button('button-difficulty', ...property).render()
+      )
     );
+
     return difficultyButtons;
   }
   changeDifficulty(group: number) {

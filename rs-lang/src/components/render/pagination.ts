@@ -43,8 +43,11 @@ class Pagination {
     (document.querySelector('.counter') as HTMLElement).innerHTML =
       'Страница  ' + '&nbsp' + (state.page + 1) + ' / ' + total;
 
-    elem1.setAttribute('data-state', index === 0 ? 'disabled' : '');
-    elem2.setAttribute('data-state', index === total - 1 ? 'disabled' : '');
+    elem1.setAttribute('data-state', state.page === 0 ? 'disabled' : '');
+    elem2.setAttribute(
+      'data-state',
+      state.page === total - 1 ? 'disabled' : ''
+    );
   }
 }
 export const pagination = new Pagination();

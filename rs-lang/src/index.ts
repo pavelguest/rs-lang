@@ -2,6 +2,7 @@ import './scss/main.scss';
 
 import './components/types/types';
 import './components/storage/state';
+import './components/helpers/constansts';
 
 import './components/games/sprint';
 

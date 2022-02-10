@@ -1,5 +1,6 @@
 import { storage } from '../storage/localstorage';
 import { JSONObject } from '../types/types';
+import { constants } from '../helpers/constansts';
 
 class AuthorisationRepository {
   private baseUrl: string = 'https://rsslang.herokuapp.com';
@@ -39,29 +40,31 @@ class AuthorisationRepository {
     if (!options.headers) {
       options.headers = {};
     }
-    if (Date.now() > storage.tokenDateExpiration) {
-      try {
-        const response = await fetch(
-          `${this.usersUrl}/${storage.idUser}/tokens`,
-          {
-            method: 'GET',
-            headers: {
-              Authorization: `Bearer ${storage.refreshToken}`,
-            },
-          }
-        );
-        const result = await response.json();
-        const { token, refreshToken } = result;
-        storage.token = token;
-        storage.refreshToken = refreshToken;
-        storage.tokenDateExpiration = Date.now() + 4 * 60 * 60 * 1000;
-        storage.save();
-      } catch (error) {
-        console.log('error in refreshing');
-      }
+    if (Date.now() < storage.tokenExpirationDate) {
+      options.headers.Authorization = `Bearer ${storage.token}`;
+      return fetch(url, options);
+    }
+    try {
+      const response = await fetch(
+        `${this.usersUrl}/${storage.idUser}/tokens`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${storage.refreshToken}`,
+          },
+        }
+      );
+      const { token, refreshToken } = await response.json();
+      storage.token = token;
+      storage.refreshToken = refreshToken;
+      storage.tokenExpirationDate = Date.now() + constants.TOKEN_EXPIRE_TIME;
+      storage.save();
+    } catch (error) {
+      console.log('error in refreshing');
     }
     options.headers.Authorization = `Bearer ${storage.token}`;
     return fetch(url, options);
   }
 }
+
 export const authorisation = new AuthorisationRepository();

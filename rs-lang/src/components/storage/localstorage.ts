@@ -5,14 +5,14 @@ class LocalStorage {
   token?: string;
   refreshToken?: string;
   isAuthorised: boolean;
-  tokenDateExpiration: number;
+  tokenExpirationDate: number;
   constructor(localStorageData: ILocalStorage) {
     this.idUser = localStorageData?.idUser ?? null;
     this.name = localStorageData?.name ?? null;
     this.token = localStorageData?.token ?? null;
     this.refreshToken = localStorageData?.refreshToken ?? null;
     this.isAuthorised = localStorageData?.isAuthorised ?? false;
-    this.tokenDateExpiration = localStorageData.tokenDateExpiration ?? 0;
+    this.tokenExpirationDate = localStorageData.tokenExpirationDate ?? 0;
   }
   save() {
     localStorage.setItem('rsLangTeam26', JSON.stringify(this));
@@ -22,7 +22,7 @@ class LocalStorage {
     delete this.name;
     delete this.token;
     delete this.refreshToken;
-    this.tokenDateExpiration = 0;
+    this.tokenExpirationDate = 0;
     this.isAuthorised = false;
     this.save();
   }

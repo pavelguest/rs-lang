@@ -2,7 +2,7 @@ import { Button } from '../buttons/Button';
 import { authorisation } from '../services/AuthorisationRepository';
 import { storage } from '../storage/localstorage';
 import { startingPage } from './startingPage';
-
+import { constants } from '../helpers/constansts';
 class RenderLoginPopup {
   renderLoginForm(container: HTMLElement) {
     const popup = document.createElement('div');
@@ -109,7 +109,7 @@ class RenderLoginPopup {
         storage.idUser = loginResponse.userId;
         storage.name = loginResponse.name;
         storage.isAuthorised = true;
-        storage.tokenDateExpiration = Date.now() + 4 * 60 * 60 * 1000;
+        storage.tokenExpirationDate = Date.now() + constants.TOKEN_EXPIRE_TIME;
         storage.save();
         startingPage.render();
       } else if (response.status === 404 || response.status === 403) {

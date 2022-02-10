@@ -61,7 +61,7 @@ export class CardWord {
 <p class="word__russian">${this.wordTranslate}</p>
 `
     );
-    divCardContent.classList.add('word-wrapper');
+    divWordWrapper.classList.add('word-wrapper');
     const divMeaningWrapper = document.createElement('div');
     divMeaningWrapper.insertAdjacentHTML(
       'beforeend',
@@ -70,7 +70,7 @@ export class CardWord {
         <p class="meaning__russian">${this.textMeaningTranslate}</p>
 `
     );
-    divCardContent.classList.add('meaning-wrapper');
+    divMeaningWrapper.classList.add('meaning-wrapper');
     const divExampleWrapper = document.createElement('div');
     divExampleWrapper.insertAdjacentHTML(
       'beforeend',
@@ -79,7 +79,7 @@ export class CardWord {
 <p class="example__russian">${this.textExampleTranslate}</p>
 `
     );
-    divCardContent.classList.add('example-wrapper');
+    divExampleWrapper.classList.add('example-wrapper');
     divCardContent.append(divWordWrapper, divMeaningWrapper, divExampleWrapper);
     div.append(divCardContent);
     const span = document.createElement('span');

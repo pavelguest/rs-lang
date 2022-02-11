@@ -131,3 +131,18 @@
   background: url("./../images/mute.svg")no-repeat;
   background-size: contain;
 }
+.result-word__play {
+  width: 20px;
+  height: 20px;
+  background: url("./../images/volume.svg") no-repeat;
+  background-size: contain;
+  &:hover {
+    filter: invert(42%) sepia(93%) saturate(1352%) hue-rotate(87deg) brightness(119%) contrast(119%);
+  }
+}
+.button__game-over,
+.button__try-again {
+  width: 150px;
+  padding: 13px 0;
+  font-size: 20px;
+}

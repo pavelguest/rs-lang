@@ -1,12 +1,10 @@
 import { Button } from '../../buttons/Button';
-import { victoryGameSound } from '../../helpers/sounds';
 import Sprint from './Sprint';
 
 class SprintView {
   sprint = new Sprint();
   stopGameTimer: (() => void) | undefined;
   async runGame() {
-    this.sprint.arr();
     this.stopGameTimer = this.sprint.startGameTimer();
   }
   render() {
@@ -37,15 +35,15 @@ class SprintView {
     const falseAnswer = new Button(
       'false-answer',
       'неверно',
-      this.isFalseAnswer.bind(this)
+      this.isCorrectAnswer.bind(this, false)
     ).render();
     const trueAnswer = new Button(
       'true-answer',
       'верно',
-      this.isTrueAnswer.bind(this)
+      this.isCorrectAnswer.bind(this, true)
     ).render();
 
-    gameQuestion.textContent = `${this.sprint.currQuestion()}`;
+    gameQuestion.textContent = `${this.sprint.getCurrentQuestion()}`;
     gameAnswer.textContent = `${this.sprint.randomAnswer()}`;
 
     sprintContainer.append(
@@ -65,26 +63,11 @@ class SprintView {
         }
       });
   }
-  isTrueAnswer() {
-    this.sprint.isAnswerRight(true);
+  isCorrectAnswer(check: boolean) {
+    this.sprint.isAnswerRight(check);
     document.querySelector('.sprint-container')!.remove();
+    // this.sprint.isEndQuestionsGame();
     this.render();
-    this.isEndQuestionsGame();
-  }
-  isFalseAnswer() {
-    this.sprint.isAnswerRight(false);
-    document.querySelector('.sprint-container')!.remove();
-    this.render();
-    this.isEndQuestionsGame();
-  }
-  isEndQuestionsGame() {
-    if (this.sprint.currentQuestion === 20) {
-      document.querySelector('.sprint-wrapper')!.innerHTML = '';
-      this.sprint.currentQuestion = 0;
-      // обнуление пагинации
-      this.sprint.score = 0;
-      victoryGameSound.play();
-    }
   }
 }
 

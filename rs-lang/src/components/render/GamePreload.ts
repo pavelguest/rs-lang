@@ -27,7 +27,7 @@ class GamePreload {
       const buttonSelectLvlGame = new Button(
         'game-lvl__button',
         `${i + 1}`,
-        this.selectLvlGame.bind(this, 0, i, typeGame)
+        this.selectGroupGame.bind(this, i, typeGame)
       ).render();
       lvlButtonsContainer.append(buttonSelectLvlGame);
     }
@@ -45,10 +45,10 @@ class GamePreload {
     gameWrapper.append(lvlButtonsContainer);
     gameWrapper.append(buttonBack);
   }
-  async selectLvlGame(page: number, lvl: number, typeGame: string) {
-    await worldsRepository.all(page, lvl);
+  async selectGroupGame(group: number, typeGame: string) {
     if (typeGame === 'sprint') {
-      sprintViewWrapper.render();
+      sprintViewWrapper.awaitStartGameRender();
+      sprintViewWrapper.sprintView.sprint.getWordsArr(group);
     }
   }
   backGame() {

@@ -27,3 +27,10 @@ export interface ILocalStorage {
   refreshToken: string;
   isAuthorised: boolean;
 }
+export interface ILearnWords {
+  id: string;
+  word: string;
+  audio: string;
+  wordTranslate: string;
+  isAnswer: boolean;
+}

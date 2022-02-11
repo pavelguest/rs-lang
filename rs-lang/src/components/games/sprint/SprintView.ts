@@ -66,7 +66,7 @@ class SprintView {
   isCorrectAnswer(check: boolean) {
     this.sprint.isAnswerRight(check);
     document.querySelector('.sprint-container')!.remove();
-    // this.sprint.isEndQuestionsGame();
+    this.sprint.isEndQuestionsGame();
     this.render();
   }
 }

@@ -10,7 +10,7 @@ import SprintView from './SprintView';
 class SprintViewWrapper {
   sprintView = new SprintView();
   awaitStartGameRender() {
-    let timeToStartGame: number = 5;
+    let timeToStartGame: number = 3;
     document.body.innerHTML = '';
     const main = document.createElement('main');
     const timerPreloadContainer = document.createElement('div') as HTMLElement;

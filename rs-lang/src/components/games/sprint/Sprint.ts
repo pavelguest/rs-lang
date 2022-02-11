@@ -25,10 +25,11 @@ class Sprint {
   answer: string = '';
   isAnswer: boolean = false;
   async getWordsArr(group: number) {
-    for (let page = 0; page < 30; page++) {
-      const data = await worldsRepository.all(page, group);
-      this.wordsArr = [...this.wordsArr, ...data];
-    }
+    const page = getRandomInRange(0, 29);
+    console.log(page);
+
+    const data = await worldsRepository.all(page, group);
+    this.wordsArr = [...data];
   }
   getCurrentQuestion() {
     this.question = this.wordsArr[this.currentQuestion].word;
@@ -36,13 +37,8 @@ class Sprint {
     return this.question;
   }
   async isEndQuestionsGame() {
-    if (this.currentQuestion === 15) {
-      const data = await worldsRepository.all(
-        (this.currentPage += 1),
-        this.currentLvl
-      );
-      this.wordsArr = [...this.wordsArr, ...data];
-      console.log(this.wordsArr);
+    if (this.currentQuestion === 19) {
+      this.currentQuestion = 0;
     }
   }
   randomAnswer() {

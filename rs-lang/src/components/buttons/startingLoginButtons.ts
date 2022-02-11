@@ -6,21 +6,10 @@ import { startingPage } from '../render/startingPage';
 
 class StartingLoginButton {
   render() {
-    let button = null as HTMLElement | null;
-    if (!storage.isAuthorised) {
-      button = new Button(
-        'starting-page__login',
-        'Войти',
-        this.openLoginPopup.bind(this)
-      ).render();
-    } else {
-      button = new Button(
-        'starting-page__login',
-        'Выйти',
-        this.logout.bind(this)
-      ).render();
-    }
-    return button;
+    const props: [string, () => void] = storage.isAuthorised
+      ? ['Выйти', this.logout.bind(this)]
+      : ['Войти', this.openLoginPopup.bind(this)];
+    return new Button('starting-page__login', ...props).render();
   }
   openLoginPopup() {
     (document.querySelector('.popup-login') as HTMLElement)?.remove();

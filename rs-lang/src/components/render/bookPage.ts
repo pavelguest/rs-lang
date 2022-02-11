@@ -5,10 +5,14 @@ import { gamesNavButtons } from '../buttons/gamesNavButtons';
 import { difficultyButtons } from '../buttons/difficultyButtons';
 import { CardWord } from './cardWord';
 import { worldsRepository } from '../services/WordsRepository';
-import { IWords } from '../types/types';
+import { IWords, JSONObject } from '../types/types';
 import { state } from '../storage/state';
+import { difficultWordsService } from '../services/DifficultWordsService';
+import { JSONValue } from '../types/types';
 class BookPage {
   async render() {
+    const arrDifficults = await this.getAllDifficult();
+
     document.body.innerHTML = '';
     document.body.append(header.render());
     header.addlisteners();
@@ -44,17 +48,27 @@ class BookPage {
     const array = await worldsRepository.all(state.page, state.group);
     array.forEach((word: IWords) => {
       const wordObj = new CardWord(word);
-      cardsWrapper.append(wordObj.render());
+      const card = wordObj.render();
+      if (arrDifficults.includes(word.id)) {
+        const p = document.createElement('p');
+        card.querySelector('.add-difficults__button')?.remove();
+        card.querySelector('.difficult-learned__wrapper')?.prepend(p);
+        p.classList.add('difficult-stamp');
+        p.textContent = 'difficult';
+        /* card.append(p); */
+      }
+      cardsWrapper.append(card);
     });
-    /*  worldsRepository.all(state).then((result: IWords[]) => {
-      result.forEach((word) => {
-        const wordObj = new CardWord(word);
-        cardsWrapper.append(wordObj.render());
-      });
-    }); */
-
     pagination.addListeners();
   }
   renderMain() {}
+  async getAllDifficult() {
+    const [paginatedResults] =
+      await difficultWordsService.getAllDifficultWords();
+    const arrDifficultWords = paginatedResults.paginatedResults;
+    console.log(arrDifficultWords);
+    const arr = arrDifficultWords.map((elem: JSONValue) => elem._id);
+    return arr;
+  }
 }
 export const bookPage = new BookPage();

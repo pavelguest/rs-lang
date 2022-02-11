@@ -1,5 +1,6 @@
 import { ICardWord } from '../types/types';
 import { worldsRepository } from '../services/WordsRepository';
+import { difficultWordsService } from '../services/DifficultWordsService';
 import {
   soundPlay,
   wordAudio,
@@ -8,6 +9,9 @@ import {
 } from '../helpers/sounds';
 import { IWords } from '../types/types';
 import { state } from '../storage/state';
+import { Button } from '../buttons/Button';
+import { storage } from '../storage/localstorage';
+import { bookPage } from './bookPage';
 export class CardWord {
   id: string;
   group: number;
@@ -86,6 +90,30 @@ export class CardWord {
     divWordWrapper.append(span);
     span.classList.add('word__audio');
     span.addEventListener('click', () => this.playAudio());
+    if (storage.isAuthorised) {
+      const divWrapper = document.createElement('div');
+      divWrapper.classList.add('difficult-learned__wrapper');
+      const buttonAddToDifficulties = new Button(
+        'add-difficults__button',
+        'Добавить в сложные слова',
+        () => {
+          this.addToDifficulties();
+          buttonAddToDifficulties.remove();
+          const p = document.createElement('p');
+          p.classList.add('difficult-stamp');
+          p.textContent = 'difficult';
+          divWrapper.prepend(p);
+        }
+      ).render();
+      divWrapper.append(buttonAddToDifficulties);
+      const buttonAddToLearned = new Button(
+        'add-learned__button',
+        'Добавить в изученное',
+        this.addToLearned.bind(this)
+      ).render();
+      divWrapper.append(buttonAddToLearned);
+      div.append(divWrapper);
+    }
 
     return div;
   }
@@ -101,4 +129,10 @@ export class CardWord {
       soundPlay(exampleAudio);
     };
   }
+  addToDifficulties() {
+    difficultWordsService.createDifficultWord(this.id, {
+      optional: { isDifficult: 'true' },
+    });
+  }
+  addToLearned() {}
 }

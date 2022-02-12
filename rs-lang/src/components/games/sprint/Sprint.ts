@@ -6,10 +6,8 @@ import {
   victoryGameSound,
   wrongAnswerSound,
 } from '../../helpers/sounds';
-import { sprintResultGamePopup } from './SprintResultGamePopup';
+import ResultGamePopup from '../ResultGamePopup';
 import { worldsRepository } from '../../services/WordsRepository';
-import { state } from '../../storage/state';
-import sprintViewWrapper from '.';
 
 class Sprint {
   wordsArr: IWords[] = [];
@@ -34,7 +32,7 @@ class Sprint {
     this.answerRight = this.wordsArr[this.currentQuestion].wordTranslate;
     return this.question;
   }
-  async isEndQuestionsGame() {
+  isEndQuestionsGame() {
     if (this.currentQuestion === 19) {
       this.currentQuestion = 0;
     }
@@ -86,7 +84,7 @@ class Sprint {
       const timer = document.querySelector('.timer-container');
       if (this.countTimerGame === 0) {
         document.querySelector('.sprint-wrapper')!.innerHTML = '';
-        const popup = sprintResultGamePopup.render(
+        const popup = new ResultGamePopup('sprint').render(
           this.learnWords,
           this.generalScore
         );

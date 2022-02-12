@@ -9,23 +9,6 @@ import SprintView from './SprintView';
 
 class SprintViewWrapper {
   sprintView = new SprintView();
-  awaitStartGameRender() {
-    let timeToStartGame: number = 3;
-    document.body.innerHTML = '';
-    const main = document.createElement('main');
-    const timerPreloadContainer = document.createElement('div') as HTMLElement;
-    timerPreloadContainer.classList.add('timer-preload__container');
-    main.append(timerPreloadContainer!);
-    document.body.append(main);
-    const inter = setInterval(() => {
-      if (timeToStartGame === 0) {
-        this.render();
-        clearInterval(inter);
-      }
-      timerPreloadContainer.textContent = `${timeToStartGame}`;
-      timeToStartGame -= 1;
-    }, 1000);
-  }
   render() {
     document.body.innerHTML = '';
 
@@ -58,7 +41,6 @@ class SprintViewWrapper {
     closeButtonGame.classList.add('sprint__close-game');
     closeButtonGame.addEventListener('click', () => {
       this.closeGame();
-      closeButtonGame.classList.toggle('active-fullscreen');
     });
 
     document.body.append(main);
@@ -79,6 +61,9 @@ class SprintViewWrapper {
     startingPage.render();
   }
   fullScreen() {
+    document
+      .querySelector('.settings-buttons__fullscreen')!
+      .classList.toggle('active-fullscreen');
     if (document.fullscreenElement) {
       document.exitFullscreen();
     } else {

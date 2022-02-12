@@ -21,3 +21,6 @@ import './components/buttons/addToDifficultsButton';
 import './components/render/cardWord';
 
 import './components/games/audioCall/AudioCall';
+import './components/games/audioCall/AudioCallView';
+import './components/games/audioCall/AudioCallViewWrapper';
+import './components/games/StartGameDelay';

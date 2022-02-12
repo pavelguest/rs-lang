@@ -2,7 +2,7 @@ import { state } from '../storage/state';
 import { startingPage } from './startingPage';
 import { bookPage } from './bookPage';
 import { statsPage } from './statsPage';
-import { gamePreload } from './GamePreload';
+import { gamePreload } from '../games/GamePreload';
 class Header {
   render() {
     const header = document.createElement('header');

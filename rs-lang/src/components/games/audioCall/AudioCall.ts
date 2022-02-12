@@ -1,18 +1,35 @@
 import { getRandomInRange } from '../../helpers/helpers';
+import {
+  rightAnswerSound,
+  soundPlay,
+  wrongAnswerSound,
+} from '../../helpers/sounds';
 import { worldsRepository } from '../../services/WordsRepository';
-import { IWords } from '../../types/types';
+import { ILearnWords, IWords } from '../../types/types';
+import ResultGamePopup from '../ResultGamePopup';
 
 class AudioCall {
   wordsArr: IWords[] = [];
+  learnWords: ILearnWords[] = [];
   question: HTMLAudioElement | undefined;
   answerRight: string = '';
   answers: string[] = [];
   currentQuestion: number = 0;
+  isAnswer: boolean = false;
 
   async getWordsArr(group: number) {
     const page = getRandomInRange(0, 29);
     const data = await worldsRepository.all(page, group);
     this.wordsArr = [...data];
+  }
+  isEndQuestionsGame() {
+    if (this.currentQuestion === 20) {
+      const popup = new ResultGamePopup('audioCall').render(this.learnWords, 0);
+      document.querySelector('.audio-call-wrapper')!.append(popup);
+      this.currentQuestion = 0;
+      return true;
+    }
+    return false;
   }
   getQuestion() {
     this.question = new Audio();
@@ -20,7 +37,7 @@ class AudioCall {
       this.wordsArr[this.currentQuestion].audio
     }`;
     console.log(this.question);
-
+    this.question.play();
     return this.question;
   }
   getAnswers() {
@@ -43,4 +60,22 @@ class AudioCall {
       ? randomNum
       : this.getWrongAnswer(this.currentQuestion);
   }
+  isAnswerRight(word: string) {
+    if (word === this.answerRight) {
+      soundPlay(rightAnswerSound);
+      this.isAnswer = true;
+    } else {
+      soundPlay(wrongAnswerSound);
+      this.isAnswer = false;
+    }
+    this.learnWords.push({
+      id: this.wordsArr[this.currentQuestion].id,
+      word: this.wordsArr[this.currentQuestion].word,
+      audio: this.wordsArr[this.currentQuestion].audio,
+      wordTranslate: this.wordsArr[this.currentQuestion].wordTranslate,
+      isAnswer: this.isAnswer,
+    });
+  }
 }
+
+export default AudioCall;

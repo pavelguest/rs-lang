@@ -19,3 +19,5 @@ import './components/buttons/gamesNavButtons';
 import './components/buttons/difficultyButtons';
 import './components/buttons/addToDifficultsButton';
 import './components/render/cardWord';
+
+import './components/games/audioCall/AudioCall';

@@ -6,6 +6,7 @@ const state: IState = {
   page: 0,
   wordsArr: [],
   difficultWords: [],
+  learnedWords: [],
 };
 
 export { state };

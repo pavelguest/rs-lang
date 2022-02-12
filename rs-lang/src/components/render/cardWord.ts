@@ -98,18 +98,19 @@ export class CardWord {
         'Добавить в сложные слова',
         () => {
           this.addToDifficulties();
-          buttonAddToDifficulties.remove();
-          const p = document.createElement('p');
-          p.classList.add('difficult-stamp');
-          p.textContent = 'difficult';
-          divWrapper.prepend(p);
+          this.removeFromArray(state.learnedWords, this.id);
+          bookPage.render();
         }
       ).render();
       divWrapper.append(buttonAddToDifficulties);
       const buttonAddToLearned = new Button(
         'add-learned__button',
         'Добавить в изученное',
-        this.addToLearned.bind(this)
+        () => {
+          this.addToLearned();
+          this.removeFromArray(state.difficultWords, this.id);
+          bookPage.render();
+        }
       ).render();
       divWrapper.append(buttonAddToLearned);
       div.append(divWrapper);
@@ -129,10 +130,20 @@ export class CardWord {
       soundPlay(exampleAudio);
     };
   }
-  addToDifficulties() {
-    difficultWordsService.createDifficultWord(this.id, {
+  async addToDifficulties() {
+    difficultWordsService.createWord(this.id, {
       optional: { isDifficult: 'true' },
     });
+    state.difficultWords.push(this.id);
   }
-  addToLearned() {}
+  async addToLearned() {
+    difficultWordsService.createWord(this.id, {
+      optional: { isLearned: 'true' },
+    });
+    state.learnedWords.push(this.id);
+  }
+  removeFromArray(array: Array<string>, word: string) {
+    const index = array.indexOf(word);
+    array.splice(index, 1);
+  }
 }

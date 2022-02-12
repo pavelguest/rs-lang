@@ -9,10 +9,12 @@ import { IWords, JSONObject } from '../types/types';
 import { state } from '../storage/state';
 import { difficultWordsService } from '../services/DifficultWordsService';
 import { JSONValue } from '../types/types';
+import { storage } from '../storage/localstorage';
+import { rightAnswerSound } from '../helpers/sounds';
 class BookPage {
   async render() {
-    const arrDifficults = await this.getAllDifficult();
-
+    console.log(state.difficultWords);
+    console.log(state.learnedWords);
     document.body.innerHTML = '';
     document.body.append(header.render());
     header.addlisteners();
@@ -49,26 +51,41 @@ class BookPage {
     array.forEach((word: IWords) => {
       const wordObj = new CardWord(word);
       const card = wordObj.render();
-      if (arrDifficults.includes(word.id)) {
+      if (state.difficultWords.includes(word.id)) {
         const p = document.createElement('p');
         card.querySelector('.add-difficults__button')?.remove();
         card.querySelector('.difficult-learned__wrapper')?.prepend(p);
         p.classList.add('difficult-stamp');
         p.textContent = 'difficult';
-        /* card.append(p); */
+      }
+      if (state.learnedWords.includes(word.id)) {
+        const p = document.createElement('p');
+        card.querySelector('.add-learned__button')?.remove();
+        card.querySelector('.difficult-learned__wrapper')?.append(p);
+        p.classList.add('learned-stamp');
+        p.textContent = 'learned';
       }
       cardsWrapper.append(card);
     });
     pagination.addListeners();
   }
-  renderMain() {}
+
   async getAllDifficult() {
     const [paginatedResults] =
       await difficultWordsService.getAllDifficultWords();
     const arrDifficultWords = paginatedResults.paginatedResults;
-    console.log(arrDifficultWords);
     const arr = arrDifficultWords.map((elem: JSONValue) => elem._id);
+    state.difficultWords = [...arr];
+    return arr;
+  }
+  async getAllLearned() {
+    const [paginatedResults] = await difficultWordsService.getAllLearnedWords();
+    const arrLearnedWords = paginatedResults.paginatedResults;
+    const arr = arrLearnedWords.map((elem: JSONValue) => elem._id);
+    state.learnedWords = [...arr];
     return arr;
   }
 }
 export const bookPage = new BookPage();
+bookPage.getAllDifficult();
+bookPage.getAllLearned();

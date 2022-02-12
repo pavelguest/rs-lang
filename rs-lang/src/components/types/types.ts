@@ -21,6 +21,7 @@ export interface IState {
   page: number;
   wordsArr: IWords[];
   difficultWords: string[];
+  learnedWords: string[];
 }
 
 export interface ILocalStorage {

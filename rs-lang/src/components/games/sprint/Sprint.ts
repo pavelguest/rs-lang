@@ -26,8 +26,6 @@ class Sprint {
   isAnswer: boolean = false;
   async getWordsArr(group: number) {
     const page = getRandomInRange(0, 29);
-    console.log(page);
-
     const data = await worldsRepository.all(page, group);
     this.wordsArr = [...data];
   }

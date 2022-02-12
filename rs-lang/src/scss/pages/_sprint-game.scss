@@ -1,15 +1,18 @@
-.sprint-wrapper {
+.sprint-wrapper,
+.audio-call-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: calc(100vh - 81px);
 }
-.sprint__title {
+.sprint__title,
+.audio-call__title {
   padding: 10px;
   font-size: 50px;
   text-align: center;
   color: #ffffff;
+  text-transform: uppercase;
   background-color: #47b39d;
   box-shadow: 0 0 10px 0 rgb(0 0 0 / 20%);
 }

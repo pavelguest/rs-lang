@@ -1,7 +1,8 @@
 import { Button } from '../buttons/Button';
-import sprintViewWrapper from '../games/sprint';
-import { worldsRepository } from '../services/WordsRepository';
-import { startingPage } from './startingPage';
+import { audioCallViewWrapper } from './audioCall/AudioCallViewWrapper';
+import sprintViewWrapper from './sprint';
+import { startGameDelay } from './StartGameDelay';
+import { startingPage } from '../render/startingPage';
 
 class GamePreload {
   render(typeGame: string) {
@@ -47,12 +48,21 @@ class GamePreload {
   }
   async selectGroupGame(group: number, typeGame: string) {
     if (typeGame === 'sprint') {
-      sprintViewWrapper.awaitStartGameRender();
+      startGameDelay.awaitStartGameRender(this.startSprintGame.bind(this));
       sprintViewWrapper.sprintView.sprint.getWordsArr(group);
+    } else {
+      startGameDelay.awaitStartGameRender(this.startAudioCallGame.bind(this));
+      audioCallViewWrapper.audioCallView.audioCall.getWordsArr(group);
     }
   }
   backGame() {
     startingPage.render();
+  }
+  startSprintGame() {
+    sprintViewWrapper.render();
+  }
+  startAudioCallGame() {
+    audioCallViewWrapper.render();
   }
 }
 

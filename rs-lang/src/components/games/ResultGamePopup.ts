@@ -1,10 +1,15 @@
-import sprintViewWrapper from '.';
-import { Button } from '../../buttons/Button';
-import { soundPlay } from '../../helpers/sounds';
-import { ILearnWords } from '../../types/types';
-import { gamePreload } from '../../render/GamePreload';
+import sprintViewWrapper from './sprint';
+import { Button } from '../buttons/Button';
+import { soundPlay } from '../helpers/sounds';
+import { ILearnWords } from '../types/types';
+import { gamePreload } from './GamePreload';
+import { audioCallViewWrapper } from './audioCall/AudioCallViewWrapper';
 
-class SprintResultGamePopup {
+class ResultGamePopup {
+  typeGame: string;
+  constructor(typeGame: string) {
+    this.typeGame = typeGame;
+  }
   render(answers: ILearnWords[], score: number) {
     const popupWrapper = document.createElement('div');
     popupWrapper.classList.add('game__result-wrapper');
@@ -77,14 +82,18 @@ class SprintResultGamePopup {
     return popupWrapper;
   }
   gameOver() {
-    sprintViewWrapper.closeGame();
+    if (this.typeGame === 'sprint') {
+      sprintViewWrapper.closeGame();
+    } else {
+      audioCallViewWrapper.closeGame();
+    }
   }
   tryAgain() {
     gamePreload.selectGroupGame(
       sprintViewWrapper.sprintView.sprint.currentLvl,
-      'sprint'
+      this.typeGame
     );
   }
 }
 
-export const sprintResultGamePopup = new SprintResultGamePopup();
+export default ResultGamePopup;

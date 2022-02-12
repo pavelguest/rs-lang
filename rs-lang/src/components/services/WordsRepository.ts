@@ -11,8 +11,6 @@ class WordsRepository {
     const res = await (
       await fetch(`${this.words}?page=${page}&group=${group}`)
     ).json();
-    console.log(res);
-    state.wordsArr = res;
     return res;
   }
   async get(id: number) {

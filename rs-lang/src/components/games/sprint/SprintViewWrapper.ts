@@ -1,4 +1,3 @@
-import { Button } from '../../buttons/Button';
 import {
   rightAnswerSound,
   soundMute,
@@ -10,6 +9,23 @@ import SprintView from './SprintView';
 
 class SprintViewWrapper {
   sprintView = new SprintView();
+  awaitStartGameRender() {
+    let timeToStartGame: number = 3;
+    document.body.innerHTML = '';
+    const main = document.createElement('main');
+    const timerPreloadContainer = document.createElement('div') as HTMLElement;
+    timerPreloadContainer.classList.add('timer-preload__container');
+    main.append(timerPreloadContainer!);
+    document.body.append(main);
+    const inter = setInterval(() => {
+      if (timeToStartGame === 0) {
+        this.render();
+        clearInterval(inter);
+      }
+      timerPreloadContainer.textContent = `${timeToStartGame}`;
+      timeToStartGame -= 1;
+    }, 1000);
+  }
   render() {
     document.body.innerHTML = '';
 
@@ -58,7 +74,6 @@ class SprintViewWrapper {
     if (this.sprintView.stopGameTimer) {
       this.sprintView.stopGameTimer();
       this.sprintView.sprint.countTimerGame = 59;
-      // обнуление пагинации
       this.sprintView.sprint.score = 0;
     }
     startingPage.render();

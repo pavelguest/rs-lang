@@ -55,3 +55,10 @@ export interface ICardWord {
   textMeaningTranslate: 'string';
   textExampleTranslate: 'string';
 }
+export interface ILearnWords {
+  id: string;
+  word: string;
+  audio: string;
+  wordTranslate: string;
+  isAnswer: boolean;
+}

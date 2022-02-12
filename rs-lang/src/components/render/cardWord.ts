@@ -1,5 +1,6 @@
 import { ICardWord } from '../types/types';
 import { worldsRepository } from '../services/WordsRepository';
+import { difficultWordsService } from '../services/DifficultWordsService';
 import {
   soundPlay,
   wordAudio,
@@ -8,6 +9,9 @@ import {
 } from '../helpers/sounds';
 import { IWords } from '../types/types';
 import { state } from '../storage/state';
+import { Button } from '../buttons/Button';
+import { storage } from '../storage/localstorage';
+import { bookPage } from './bookPage';
 export class CardWord {
   id: string;
   group: number;
@@ -86,6 +90,31 @@ export class CardWord {
     divWordWrapper.append(span);
     span.classList.add('word__audio');
     span.addEventListener('click', () => this.playAudio());
+    if (storage.isAuthorised) {
+      const divWrapper = document.createElement('div');
+      divWrapper.classList.add('difficult-learned__wrapper');
+      const buttonAddToDifficulties = new Button(
+        'add-difficults__button',
+        'Добавить в сложные слова',
+        () => {
+          this.addToDifficulties();
+          this.removeFromArray(state.learnedWords, this.id);
+          bookPage.render();
+        }
+      ).render();
+      divWrapper.append(buttonAddToDifficulties);
+      const buttonAddToLearned = new Button(
+        'add-learned__button',
+        'Добавить в изученное',
+        () => {
+          this.addToLearned();
+          this.removeFromArray(state.difficultWords, this.id);
+          bookPage.render();
+        }
+      ).render();
+      divWrapper.append(buttonAddToLearned);
+      div.append(divWrapper);
+    }
 
     return div;
   }
@@ -100,5 +129,21 @@ export class CardWord {
     meaningAudio.onended = function () {
       soundPlay(exampleAudio);
     };
+  }
+  async addToDifficulties() {
+    difficultWordsService.createWord(this.id, {
+      optional: { isDifficult: 'true' },
+    });
+    state.difficultWords.push(this.id);
+  }
+  async addToLearned() {
+    difficultWordsService.createWord(this.id, {
+      optional: { isLearned: 'true' },
+    });
+    state.learnedWords.push(this.id);
+  }
+  removeFromArray(array: Array<string>, word: string) {
+    const index = array.indexOf(word);
+    array.splice(index, 1);
   }
 }

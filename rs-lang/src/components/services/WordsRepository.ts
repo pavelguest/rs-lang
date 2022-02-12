@@ -15,7 +15,6 @@ class WordsRepository {
   }
   async get(id: number) {
     const res = await (await fetch(`${this.words}/${id}`)).json();
-    console.log(res);
     return res;
   }
   async allWordsAuthorised(page: string, group: string) {
@@ -31,7 +30,6 @@ class WordsRepository {
       }
     );
     const result = await res.json();
-    console.log(result);
     return result;
   }
 }

@@ -5,10 +5,16 @@ import { gamesNavButtons } from '../buttons/gamesNavButtons';
 import { difficultyButtons } from '../buttons/difficultyButtons';
 import { CardWord } from './cardWord';
 import { worldsRepository } from '../services/WordsRepository';
-import { IWords } from '../types/types';
+import { IWords, JSONObject } from '../types/types';
 import { state } from '../storage/state';
+import { difficultWordsService } from '../services/DifficultWordsService';
+import { JSONValue } from '../types/types';
+import { storage } from '../storage/localstorage';
+import { rightAnswerSound } from '../helpers/sounds';
 class BookPage {
   async render() {
+    console.log(state.difficultWords);
+    console.log(state.learnedWords);
     document.body.innerHTML = '';
     document.body.append(header.render());
     header.addlisteners();
@@ -44,17 +50,42 @@ class BookPage {
     const array = await worldsRepository.all(state.page, state.group);
     array.forEach((word: IWords) => {
       const wordObj = new CardWord(word);
-      cardsWrapper.append(wordObj.render());
+      const card = wordObj.render();
+      if (state.difficultWords.includes(word.id)) {
+        const p = document.createElement('p');
+        card.querySelector('.add-difficults__button')?.remove();
+        card.querySelector('.difficult-learned__wrapper')?.prepend(p);
+        p.classList.add('difficult-stamp');
+        p.textContent = 'difficult';
+      }
+      if (state.learnedWords.includes(word.id)) {
+        const p = document.createElement('p');
+        card.querySelector('.add-learned__button')?.remove();
+        card.querySelector('.difficult-learned__wrapper')?.append(p);
+        p.classList.add('learned-stamp');
+        p.textContent = 'learned';
+      }
+      cardsWrapper.append(card);
     });
-    /*  worldsRepository.all(state).then((result: IWords[]) => {
-      result.forEach((word) => {
-        const wordObj = new CardWord(word);
-        cardsWrapper.append(wordObj.render());
-      });
-    }); */
-
     pagination.addListeners();
   }
-  renderMain() {}
+
+  async getAllDifficult() {
+    const [paginatedResults] =
+      await difficultWordsService.getAllDifficultWords();
+    const arrDifficultWords = paginatedResults.paginatedResults;
+    const arr = arrDifficultWords.map((elem: JSONValue) => elem._id);
+    state.difficultWords = [...arr];
+    return arr;
+  }
+  async getAllLearned() {
+    const [paginatedResults] = await difficultWordsService.getAllLearnedWords();
+    const arrLearnedWords = paginatedResults.paginatedResults;
+    const arr = arrLearnedWords.map((elem: JSONValue) => elem._id);
+    state.learnedWords = [...arr];
+    return arr;
+  }
 }
 export const bookPage = new BookPage();
+bookPage.getAllDifficult();
+bookPage.getAllLearned();

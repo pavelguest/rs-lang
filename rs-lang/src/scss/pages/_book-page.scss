@@ -31,6 +31,7 @@
   row-gap: 20px;
 }
 .card-word {
+  position: relative;
   display: flex;
   justify-content: start;
   align-items: start;
@@ -58,4 +59,29 @@
 .word-wrapper {
   display: flex;
   column-gap: 20px;
+}
+
+.difficult-learned__wrapper {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: right;
+  align-items: center;
+
+  row-gap: 5px;
+  & button {
+    width: 200px;
+  }
+}
+.difficult-stamp,
+.learned-stamp {
+  /*  position: absolute;
+  top: 25px;
+  right: -25px; */
+  font-size: 25px;
+  font-family: Stamp;
+  text-transform: uppercase;
+  /*  transform: rotate(45deg); */
 }

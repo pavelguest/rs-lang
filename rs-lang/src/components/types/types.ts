@@ -20,6 +20,8 @@ export interface IState {
   group: number;
   page: number;
   wordsArr: IWords[];
+  difficultWords: string[];
+  learnedWords: string[];
 }
 
 export interface ILocalStorage {
@@ -31,10 +33,10 @@ export interface ILocalStorage {
   tokenExpirationDate: number;
 }
 
-type JSONValue = { [x: string]: string };
+export type JSONValue = { [x: string]: string | boolean };
 
 export interface JSONObject {
-  [x: string]: JSONValue | string;
+  [x: string]: JSONValue | string | boolean;
 }
 
 export interface ICardWord {

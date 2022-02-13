@@ -1,3 +1,7 @@
+import { audioCallViewWrapper } from '../games/audioCall/AudioCallViewWrapper';
+import sprintViewWrapper from '../games/sprint';
+import { startGameDelay } from '../games/StartGameDelay';
+import { state } from '../storage/state';
 import { Button } from './Button';
 class GamesNavButtons {
   renderSprint() {
@@ -20,7 +24,25 @@ class GamesNavButtons {
     button.prepend(span);
     return button;
   }
-  startSprint() {}
-  startAudioChallenge() {}
+  startSprint() {
+    startGameDelay.awaitStartGameRender(this.sprint.bind(this));
+    sprintViewWrapper.sprintView.sprint.getWordsArrForBook(
+      state.group,
+      state.page
+    );
+  }
+  startAudioChallenge() {
+    startGameDelay.awaitStartGameRender(this.audioCall.bind(this));
+    audioCallViewWrapper.audioCallView.audioCall.getWordsArrForBook(
+      state.group,
+      state.page
+    );
+  }
+  sprint() {
+    sprintViewWrapper.render();
+  }
+  audioCall() {
+    audioCallViewWrapper.render();
+  }
 }
 export const gamesNavButtons = new GamesNavButtons();

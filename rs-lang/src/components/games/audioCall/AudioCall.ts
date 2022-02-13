@@ -2,6 +2,7 @@ import { getRandomInRange } from '../../helpers/helpers';
 import {
   rightAnswerSound,
   soundPlay,
+  victoryGameSound,
   wrongAnswerSound,
 } from '../../helpers/sounds';
 import { worldsRepository } from '../../services/WordsRepository';
@@ -22,11 +23,17 @@ class AudioCall {
     const data = await worldsRepository.all(page, group);
     this.wordsArr = [...data];
   }
+  async getWordsArrForBook(group: number, page: number) {
+    const data = await worldsRepository.all(page, group);
+    this.wordsArr = [...data];
+  }
   isEndQuestionsGame() {
     if (this.currentQuestion === 20) {
       const popup = new ResultGamePopup('audioCall').render(this.learnWords, 0);
       document.querySelector('.audio-call-wrapper')!.append(popup);
+      this.learnWords = [];
       this.currentQuestion = 0;
+      victoryGameSound.play();
       return true;
     }
     return false;

@@ -27,6 +27,10 @@ class Sprint {
     const data = await worldsRepository.all(page, group);
     this.wordsArr = [...data];
   }
+  async getWordsArrForBook(group: number, page: number) {
+    const data = await worldsRepository.all(page, group);
+    this.wordsArr = [...data];
+  }
   getCurrentQuestion() {
     this.question = this.wordsArr[this.currentQuestion].word;
     this.answerRight = this.wordsArr[this.currentQuestion].wordTranslate;
@@ -93,6 +97,7 @@ class Sprint {
         this.generalScore = 0;
         this.countTimerGame = 59;
         this.score = 0;
+        this.learnWords = [];
         victoryGameSound.play();
       }
       if (timer) {

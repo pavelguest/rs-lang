@@ -67,11 +67,16 @@ class AudioCallView {
     this.renderPopupQuestion();
   }
   nextQuestion() {
-    document.querySelector('.audio-call__container')!.remove();
-    this.audioCall.currentQuestion += 1;
-    const isEnd = this.audioCall.isEndQuestionsGame();
-    if (!isEnd) {
-      this.render();
+    const button = document.querySelector('.button__dont-know')!.innerHTML;
+    if (button === 'не знаю') {
+      this.isAnswerRight(' ');
+    } else {
+      document.querySelector('.audio-call__container')!.remove();
+      this.audioCall.currentQuestion += 1;
+      const isEnd = this.audioCall.isEndQuestionsGame();
+      if (!isEnd) {
+        this.render();
+      }
     }
   }
 }

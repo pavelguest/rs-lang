@@ -4,6 +4,7 @@ import AudioCall from './AudioCall';
 
 class AudioCallView {
   audioCall = new AudioCall();
+  isAnswer: boolean = false;
   render() {
     const audioCallContainer = document.createElement('div');
     audioCallContainer.classList.add('audio-call__container');
@@ -23,6 +24,15 @@ class AudioCallView {
         this.isAnswerRight.bind(this, elem)
       ).render();
       answersContainer.append(answer);
+      document.addEventListener(
+        'keydown',
+        (event) => {
+          if (event.code === `Digit${index + 1}`) {
+            this.isAnswerRight(elem);
+          }
+        },
+        { once: true }
+      );
     });
     const buttonsNavContainer = document.createElement('div');
     buttonsNavContainer.classList.add('buttons-nav__container');
@@ -31,6 +41,11 @@ class AudioCallView {
       'не знаю',
       this.nextQuestion.bind(this)
     ).render();
+    document.onkeydown = (event) => {
+      if (event.code === 'Space') {
+        this.nextQuestion();
+      }
+    };
 
     document.querySelector('.audio-call-wrapper')!.append(audioCallContainer);
     questionContainer.append(questionDiv);
@@ -68,9 +83,11 @@ class AudioCallView {
   }
   nextQuestion() {
     const button = document.querySelector('.button__dont-know')!.innerHTML;
-    if (button === 'не знаю') {
+    if (button === 'не знаю' || !this.isAnswer) {
+      this.isAnswer = true;
       this.isAnswerRight(' ');
-    } else {
+    } else if (button === 'следующий' || this.isAnswer) {
+      this.isAnswer = false;
       document.querySelector('.audio-call__container')!.remove();
       this.audioCall.currentQuestion += 1;
       const isEnd = this.audioCall.isEndQuestionsGame();

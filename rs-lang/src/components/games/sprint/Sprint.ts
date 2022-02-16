@@ -12,6 +12,7 @@ import { worldsRepository } from '../../services/WordsRepository';
 class Sprint {
   wordsArr: IWords[] = [];
   learnWords: ILearnWords[] = [];
+  idLearnWords: string[] = [];
   currentQuestion: number = 0;
   score: number = 0;
   generalScore: number = 0;
@@ -73,13 +74,24 @@ class Sprint {
       this.generalScore += 40;
       this.score = 0;
     }
-    this.learnWords.push({
+    const resultObj = {
       id: this.wordsArr[this.currentQuestion].id,
       word: this.wordsArr[this.currentQuestion].word,
       audio: this.wordsArr[this.currentQuestion].audio,
       wordTranslate: this.wordsArr[this.currentQuestion].wordTranslate,
       isAnswer: this.isAnswer,
-    });
+    };
+    if (!this.idLearnWords.includes(this.wordsArr[this.currentQuestion].id)) {
+      this.idLearnWords.push(this.wordsArr[this.currentQuestion].id);
+      this.learnWords.push(resultObj);
+    } else {
+      this.learnWords.forEach((elem, index, arr) => {
+        if (elem.id === this.wordsArr[this.currentQuestion].id) {
+          elem.isAnswer = this.isAnswer;
+        }
+      });
+    }
+    console.log(this.learnWords);
 
     this.currentQuestion += 1;
   }

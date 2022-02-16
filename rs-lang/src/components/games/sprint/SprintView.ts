@@ -42,6 +42,15 @@ class SprintView {
       'верно',
       this.isCorrectAnswer.bind(this, true)
     ).render();
+    document.onkeydown = (event) => {
+      if (event.code === 'ArrowLeft') {
+        this.isCorrectAnswer(false);
+      } else if (event.code === 'ArrowRight') {
+        this.isCorrectAnswer(true);
+      } else {
+        return;
+      }
+    };
 
     gameQuestion.textContent = `${this.sprint.getCurrentQuestion()}`;
     gameAnswer.textContent = `${this.sprint.randomAnswer()}`;

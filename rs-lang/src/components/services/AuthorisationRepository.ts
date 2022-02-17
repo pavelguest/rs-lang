@@ -2,6 +2,7 @@ import { storage } from '../storage/localstorage';
 import { IWords, JSONObject } from '../types/types';
 import { constants } from '../helpers/constansts';
 import { worldsRepository } from './WordsRepository';
+import { startingLoginButton } from '../buttons/startingLoginButtons';
 
 class AuthorisationRepository {
   private baseUrl: string = 'https://rsslang.herokuapp.com';
@@ -57,7 +58,7 @@ class AuthorisationRepository {
       storage.tokenExpirationDate = Date.now() + constants.TOKEN_EXPIRE_TIME;
       storage.save();
     } catch (error) {
-      console.log('error in refreshing');
+      startingLoginButton.logout();
     }
     return fetch(url, options);
   }

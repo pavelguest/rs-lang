@@ -13,8 +13,6 @@ import { storage } from '../storage/localstorage';
 import { rightAnswerSound } from '../helpers/sounds';
 class BookPage {
   async render() {
-    console.log(state.difficultWords);
-    console.log(state.learnedWords);
     document.body.innerHTML = '';
     document.body.append(header.render());
     header.addlisteners();
@@ -27,6 +25,7 @@ class BookPage {
 
     const wrapper = document.createElement('div');
     wrapper.classList.add('wrapper');
+    wrapper.classList.add('bookpage-wrapper');
     main.append(wrapper);
 
     document.body.append(main);
@@ -65,6 +64,7 @@ class BookPage {
         p.classList.add('learned-stamp');
         p.textContent = 'learned';
       }
+      card.querySelector('.delete-difficults__button')?.remove();
       cardsWrapper.append(card);
     });
     pagination.addListeners();
@@ -87,5 +87,3 @@ class BookPage {
   }
 }
 export const bookPage = new BookPage();
-bookPage.getAllDifficult();
-bookPage.getAllLearned();

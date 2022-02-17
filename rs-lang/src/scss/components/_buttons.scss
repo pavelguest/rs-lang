@@ -108,8 +108,55 @@
   width: 45px;
   height: 45px;
   font-size: 20px;
+  color: white;
   text-transform: uppercase;
+  &:nth-child(1) {
+    background-color: #4caf4fa8;
+    &:hover {
+      background-color: #43a047;
+    }
+  }
+  &:nth-child(2) {
+    background-color: #f0f35ca1;
+    &:hover {
+      background-color: #d3d159;
+    }
+  }
+  &:nth-child(3) {
+    background-color: #60bfe48e;
+    &:hover {
+      background-color: #59afd1;
+    }
+  }
+  &:nth-child(4) {
+    background-color: #774caf8e;
+    &:hover {
+      background-color: #6a449c;
+    }
+  }
+  &:nth-child(5) {
+    background-color: #af4ca79c;
+    &:hover {
+      background-color: #96418f;
+    }
+  }
+  &:nth-child(6) {
+    background-color: #af4c548c;
+    &:hover {
+      background-color: #923e45;
+    }
+  }
 }
+
+.add-learned__button,
+.add-difficults__button {
+  color: white;
+  &:active {
+    position: relative;
+    top: 1px;
+  }
+}
+
 .sprint__close-game {
   position: absolute;
   top: 15px;

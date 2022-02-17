@@ -22,9 +22,10 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: start;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
-  min-height: 1500px;
+
+/*  min-height: 1500px; */
   margin-top: 20px;
   column-gap: 20px;
 
@@ -46,7 +47,7 @@
   align-items: start;
   padding: 20px;
 
-  row-gap: 30px;
+  row-gap: 25px;
 }
 .card-word__image img {
   width: 240px;
@@ -63,8 +64,8 @@
 
 .difficult-learned__wrapper {
   position: absolute;
-  right: 5px;
-  bottom: 5px;
+  right: 20px;
+  bottom: 20px;
   display: flex;
   flex-direction: column;
   justify-content: right;
@@ -77,11 +78,7 @@
 }
 .difficult-stamp,
 .learned-stamp {
-  /*  position: absolute;
-  top: 25px;
-  right: -25px; */
-  font-size: 25px;
+  font-size: 20px;
   font-family: Stamp;
   text-transform: uppercase;
-  /*  transform: rotate(45deg); */
 }

@@ -8,6 +8,8 @@ const state: IState = {
   wordsArr: [],
   difficultWords: [],
   learnedWords: [],
+  gamesStatistic: {},
+  wordsStatistic: {},
 };
 
 export { state };

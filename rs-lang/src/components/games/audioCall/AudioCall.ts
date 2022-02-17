@@ -8,6 +8,7 @@ import {
 import { worldsRepository } from '../../services/WordsRepository';
 import { ILearnWords, IWords } from '../../types/types';
 import ResultGamePopup from '../ResultGamePopup';
+import { wordsStatistic } from '../WordsStatistic';
 
 class AudioCall {
   wordsArr: IWords[] = [];
@@ -75,6 +76,10 @@ class AudioCall {
       soundPlay(wrongAnswerSound);
       this.isAnswer = false;
     }
+    wordsStatistic.setAnswerWords(
+      this.wordsArr[this.currentQuestion].id,
+      this.isAnswer
+    );
     this.learnWords.push({
       id: this.wordsArr[this.currentQuestion].id,
       word: this.wordsArr[this.currentQuestion].word,

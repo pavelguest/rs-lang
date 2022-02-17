@@ -24,8 +24,16 @@ export interface IState {
   difficultWords: string[];
   difficultyColor: string;
   learnedWords: string[];
+  gamesStatistic: any;
+  wordsStatistic: IWordsStatistics;
 }
-
+interface IWordsStatistics {
+  [x: string]: IRightWord;
+}
+export interface IRightWord {
+  correct: number;
+  inCorrect: number;
+}
 export interface ILocalStorage {
   idUser: string;
   name: string;

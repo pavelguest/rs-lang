@@ -15,6 +15,7 @@ import './components/storage/localstorage';
 import './components/buttons/Button';
 import './components/render/renderLoginPopup';
 import './components/render/startingPage';
+import './components/render/footer';
 import './components/buttons/startingLoginButtons';
 import './components/buttons/gamesNavButtons';
 import './components/buttons/difficultyButtons';

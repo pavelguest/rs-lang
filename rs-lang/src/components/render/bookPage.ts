@@ -11,6 +11,7 @@ import { difficultWordsService } from '../services/DifficultWordsService';
 import { JSONValue } from '../types/types';
 import { storage } from '../storage/localstorage';
 import { rightAnswerSound } from '../helpers/sounds';
+import { footer } from './footer';
 class BookPage {
   async render() {
     document.body.innerHTML = '';
@@ -67,6 +68,7 @@ class BookPage {
       card.querySelector('.delete-difficults__button')?.remove();
       cardsWrapper.append(card);
     });
+    document.body.append(footer.render());
     pagination.addListeners();
   }
 

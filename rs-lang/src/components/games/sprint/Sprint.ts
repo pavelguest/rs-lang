@@ -1,5 +1,5 @@
 import { getRandomInRange } from '../../helpers/helpers';
-import { ILearnWords, IWords } from '../../types/types';
+import { ICardWord, ILearnWords, IWords } from '../../types/types';
 import {
   rightAnswerSound,
   soundPlay,
@@ -8,6 +8,8 @@ import {
 } from '../../helpers/sounds';
 import ResultGamePopup from '../ResultGamePopup';
 import { worldsRepository } from '../../services/WordsRepository';
+import { state } from '../../storage/state';
+import { wordsStatistic } from '../WordsStatistic';
 
 class Sprint {
   wordsArr: IWords[] = [];
@@ -74,6 +76,10 @@ class Sprint {
       this.generalScore += 40;
       this.score = 0;
     }
+    wordsStatistic.setAnswerWords(
+      this.wordsArr[this.currentQuestion].id,
+      this.isAnswer
+    );
     const resultObj = {
       id: this.wordsArr[this.currentQuestion].id,
       word: this.wordsArr[this.currentQuestion].word,
@@ -91,10 +97,10 @@ class Sprint {
         }
       });
     }
-    console.log(this.learnWords);
 
     this.currentQuestion += 1;
   }
+
   startGameTimer() {
     const interval = setInterval(() => {
       const timer = document.querySelector('.timer-container');

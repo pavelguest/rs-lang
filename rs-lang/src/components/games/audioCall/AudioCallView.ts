@@ -73,6 +73,7 @@ class AudioCallView {
   }
   isAnswerRight(word: string) {
     this.audioCall.isAnswerRight(word);
+    this.isAnswer = true;
     document.querySelectorAll('.audio-call__answer')!.forEach((elem) => {
       if (elem instanceof HTMLButtonElement) {
         elem.disabled = true;
@@ -83,10 +84,10 @@ class AudioCallView {
   }
   nextQuestion() {
     const button = document.querySelector('.button__dont-know')!.innerHTML;
-    if (button === 'не знаю' || !this.isAnswer) {
+    if (!this.isAnswer) {
       this.isAnswer = true;
       this.isAnswerRight(' ');
-    } else if (button === 'следующий' || this.isAnswer) {
+    } else {
       this.isAnswer = false;
       document.querySelector('.audio-call__container')!.remove();
       this.audioCall.currentQuestion += 1;

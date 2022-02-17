@@ -18,4 +18,3 @@ class StartingPage {
   }
 }
 export const startingPage = new StartingPage();
-startingPage.render();

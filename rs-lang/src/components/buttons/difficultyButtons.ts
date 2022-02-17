@@ -6,12 +6,12 @@ class DifficultyButtons {
     const difficultyButtons = document.createElement('div');
     difficultyButtons.classList.add('nav-book__difficulties');
     const props: [string, () => void][] = [
-      ['a1', this.changeDifficulty.bind(this, 0)],
-      ['a2', this.changeDifficulty.bind(this, 1)],
-      ['b1', this.changeDifficulty.bind(this, 2)],
-      ['b2', this.changeDifficulty.bind(this, 3)],
-      ['c1', this.changeDifficulty.bind(this, 4)],
-      ['c2', this.changeDifficulty.bind(this, 5)],
+      ['a1', this.changeDifficulty.bind(this, 0, 'green')],
+      ['a2', this.changeDifficulty.bind(this, 1, 'yellow')],
+      ['b1', this.changeDifficulty.bind(this, 2, 'blue')],
+      ['b2', this.changeDifficulty.bind(this, 3, 'purple')],
+      ['c1', this.changeDifficulty.bind(this, 4, 'pink')],
+      ['c2', this.changeDifficulty.bind(this, 5, 'brown')],
     ];
     props.forEach((property) =>
       difficultyButtons.append(
@@ -21,9 +21,16 @@ class DifficultyButtons {
 
     return difficultyButtons;
   }
-  changeDifficulty(group: number) {
+  async changeDifficulty(group: number, color: string) {
+    state.difficultyColor = color;
     state.group = group;
-    bookPage.render();
+    await bookPage.render();
+    document
+      .querySelectorAll('.add-difficults__button')
+      .forEach((elem) => elem.classList.add(`${color}`));
+    document
+      .querySelectorAll('.add-learned__button')
+      .forEach((elem) => elem.classList.add(`${color}`));
   }
 }
 export const difficultyButtons = new DifficultyButtons();

@@ -64,5 +64,18 @@ class DifficultWordsService {
     const result = await response.json();
     return result;
   }
+  async deleteFromDifficult(wordId: string) {
+    const response = await authorisation.fetchWithRefreshingToken(
+      `${this.baseUrl}/users/${storage.idUser}/words/${wordId}`,
+      {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${storage.token}`,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+  }
 }
 export const difficultWordsService = new DifficultWordsService();

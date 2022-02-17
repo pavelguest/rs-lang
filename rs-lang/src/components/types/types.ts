@@ -1,5 +1,6 @@
 export interface IWords {
   id: string;
+  _id: string;
   group: number;
   page: number;
   word: string;
@@ -21,6 +22,7 @@ export interface IState {
   page: number;
   wordsArr: IWords[];
   difficultWords: string[];
+  difficultyColor: string;
   learnedWords: string[];
 }
 

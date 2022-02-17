@@ -3,6 +3,9 @@ import { startingPage } from './startingPage';
 import { bookPage } from './bookPage';
 import { statsPage } from './statsPage';
 import { gamePreload } from '../games/GamePreload';
+import { Button } from '../buttons/Button';
+import { vocabularyPage } from './vocabularyPage';
+import { storage } from '../storage/localstorage';
 class Header {
   render() {
     const header = document.createElement('header');
@@ -16,6 +19,7 @@ class Header {
               <ul class="navigation">
                 <li class="navigation__link main-page__link"><a href="#">Главная</a></li>
                 <li class="navigation__link book-page__link"><a href="#">Учебник</a></li>
+                <li class="navigation__link vocabulary-page__link"><a href="#">Словарь</a></li>
                 <li class="navigation__link stats-page__link"><a href="#">Статистика</a></li>
                 <li class="navigation__link games-list">
                   <a href="#">Игры</a>
@@ -47,6 +51,16 @@ class Header {
         state.currentPage = 'book';
         bookPage.render();
       });
+
+    const vocabPage = document.querySelector('.vocabulary-page__link');
+    if (!storage.isAuthorised) {
+      vocabPage?.classList.add('hidden');
+    }
+    vocabPage?.addEventListener('click', () => {
+      this.deleteActiveClass();
+      state.currentPage = 'vocabulary';
+      vocabularyPage.render();
+    });
     document
       .querySelector('.stats-page__link')
       ?.addEventListener('click', () => {
@@ -67,6 +81,7 @@ class Header {
         }
       });
   }
+
   deleteActiveClass() {
     document
       .querySelectorAll('.navigation__link')

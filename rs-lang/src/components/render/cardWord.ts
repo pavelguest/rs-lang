@@ -12,6 +12,7 @@ import { state } from '../storage/state';
 import { Button } from '../buttons/Button';
 import { storage } from '../storage/localstorage';
 import { bookPage } from './bookPage';
+import { removeFromArray } from '../helpers/helpers';
 export class CardWord {
   id: string;
   group: number;
@@ -95,23 +96,25 @@ export class CardWord {
       divWrapper.classList.add('difficult-learned__wrapper');
       const buttonAddToDifficulties = new Button(
         'add-difficults__button',
-        'Добавить в сложные слова',
+        'Сложные',
         () => {
           this.addToDifficulties();
-          this.removeFromArray(state.learnedWords, this.id);
+          removeFromArray(state.learnedWords, this.id);
           bookPage.render();
         }
       ).render();
+      buttonAddToDifficulties.classList.add(`${state.difficultyColor}`);
       divWrapper.append(buttonAddToDifficulties);
       const buttonAddToLearned = new Button(
         'add-learned__button',
-        'Добавить в изученное',
+        'Изученные',
         () => {
           this.addToLearned();
-          this.removeFromArray(state.difficultWords, this.id);
+          removeFromArray(state.difficultWords, this.id);
           bookPage.render();
         }
       ).render();
+      buttonAddToLearned.classList.add(`${state.difficultyColor}`);
       divWrapper.append(buttonAddToLearned);
       div.append(divWrapper);
     }
@@ -141,9 +144,5 @@ export class CardWord {
       optional: { isLearned: 'true' },
     });
     state.learnedWords.push(this.id);
-  }
-  removeFromArray(array: Array<string>, word: string) {
-    const index = array.indexOf(word);
-    array.splice(index, 1);
   }
 }

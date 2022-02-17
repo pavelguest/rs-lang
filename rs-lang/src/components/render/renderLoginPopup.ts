@@ -3,6 +3,7 @@ import { authorisation } from '../services/AuthorisationRepository';
 import { storage } from '../storage/localstorage';
 import { startingPage } from './startingPage';
 import { constants } from '../helpers/constansts';
+import { bookPage } from './bookPage';
 class RenderLoginPopup {
   renderLoginForm(container: HTMLElement) {
     const popup = document.createElement('div');
@@ -112,6 +113,8 @@ class RenderLoginPopup {
         storage.tokenExpirationDate = Date.now() + constants.TOKEN_EXPIRE_TIME;
         storage.save();
         startingPage.render();
+        await bookPage.getAllDifficult();
+        bookPage.getAllLearned();
       } else if (response.status === 404 || response.status === 403) {
         (document.querySelector('.login-error') as HTMLElement).innerHTML =
           'Wrong e-mail or password';

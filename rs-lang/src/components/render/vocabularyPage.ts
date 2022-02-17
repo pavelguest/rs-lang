@@ -6,6 +6,7 @@ import { CardWord } from './cardWord';
 import { state } from '../storage/state';
 import { removeFromArray } from '../helpers/helpers';
 import { Button } from '../buttons/Button';
+import { footer } from './footer';
 
 class VocabularyPage {
   async render() {
@@ -50,6 +51,7 @@ class VocabularyPage {
         ?.append(buttonDeleteFromDifficultes);
       cardsWrapper.append(card);
     });
+    document.body.append(footer.render());
   }
   async getAllDifficult() {
     const [paginatedResults] =

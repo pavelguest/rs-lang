@@ -13,9 +13,9 @@ class WordsStatistic {
       state.wordsStatistic.wordId = { ...obj };
     } else {
       if (isAnswer) {
-        state.wordsStatistic[wordId].correct += 1;
+        state.wordsStatistic[`${wordId}`].correct += 1;
       } else {
-        state.wordsStatistic[wordId].inCorrect += 1;
+        state.wordsStatistic[`${wordId}`].inCorrect += 1;
       }
     }
     console.log(state.wordsStatistic);

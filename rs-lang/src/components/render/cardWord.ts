@@ -91,6 +91,19 @@ export class CardWord {
     divWordWrapper.append(span);
     span.classList.add('word__audio');
     span.addEventListener('click', () => this.playAudio());
+
+    const correctDiv = document.createElement('div');
+    correctDiv.classList.add('correct-answers');
+    const correctAnswers = state?.wordsStatistic[this.id]?.correct ?? 0;
+    correctDiv.textContent = `${correctAnswers}`;
+    correctDiv.title = 'Верные ответы';
+    const wrongDiv = document.createElement('div');
+    wrongDiv.classList.add('wrong-answers');
+    const wrongAnswers = state?.wordsStatistic[this.id]?.inCorrect ?? 0;
+    wrongDiv.textContent = `${wrongAnswers}`;
+    wrongDiv.title = 'Неверные ответы';
+    divWordWrapper.append(correctDiv, wrongDiv);
+
     if (storage.isAuthorised) {
       const divWrapper = document.createElement('div');
       divWrapper.classList.add('difficult-learned__wrapper');

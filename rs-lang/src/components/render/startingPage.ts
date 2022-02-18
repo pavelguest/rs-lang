@@ -16,6 +16,15 @@ class StartingPage {
       .querySelector('.header__wrapper')
       ?.prepend(startingLoginButton.render());
     document.querySelector('.main-page__link')?.classList.add('active-page');
+
+    const main = document.createElement('main');
+    main.classList.add('main');
+    const wrapper = document.createElement('div');
+    wrapper.classList.add('wrapper');
+    main.append(wrapper);
+
+    document.body.append(main);
+
     this.body.append(footer.render());
   }
 }

@@ -53,21 +53,21 @@ class Header {
       });
 
     const vocabPage = document.querySelector('.vocabulary-page__link');
+    const statPage = document.querySelector('.stats-page__link');
     if (!storage.isAuthorised) {
       vocabPage?.classList.add('hidden');
+      statPage?.classList.add('hidden');
     }
     vocabPage?.addEventListener('click', () => {
       this.deleteActiveClass();
       state.currentPage = 'vocabulary';
       vocabularyPage.render();
     });
-    document
-      .querySelector('.stats-page__link')
-      ?.addEventListener('click', () => {
-        this.deleteActiveClass();
-        state.currentPage = 'stats';
-        statsPage.render();
-      });
+    statPage?.addEventListener('click', () => {
+      this.deleteActiveClass();
+      state.currentPage = 'stats';
+      statsPage.render();
+    });
     document.querySelector('.sprint__link')?.addEventListener('click', () => {
       if (state.currentPage === 'main') {
         gamePreload.render('sprint');

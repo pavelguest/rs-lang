@@ -3,6 +3,7 @@
 @import "./base/base";
 @import "./base/typography";
 @import "./layout//popupLogin";
+@import "./base//css-circular-prog-bar";
 @import "./layout/wrapper";
 @import "./layout/header";
 @import "./layout/footer";
@@ -10,11 +11,17 @@
 @import "./pages/game-preload";
 @import "./layout/pagination";
 @import "./pages/book-page";
+@import "./pages/stats-page";
+@import "./layout/main";
 
 @import "./pages/sprint-game";
 @import "./pages//audio-call-game";
 
 @import "./base/states"
+
+
+
+
 
 
 

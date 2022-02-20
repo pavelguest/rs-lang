@@ -21,13 +21,21 @@ class Application {
       if (state.gamesStatistic.hasOwnProperty(getTodayDate())) {
         state['newSprintWords'] = dateGameStatistic[getTodayDate()]?.sprint
           ? new Set(
-              dateGameStatistic[getTodayDate()].sprint.newWords.split(',')
+              Array.isArray(dateGameStatistic[getTodayDate()].sprint.newWords)
+                ? dateGameStatistic[getTodayDate()].sprint.newWords
+                : dateGameStatistic[getTodayDate()].sprint.newWords.split(',')
             )
           : new Set();
         state['newAudioCallWords'] = dateGameStatistic[getTodayDate()]
           ?.audioCall
           ? new Set(
-              dateGameStatistic[getTodayDate()].audioCall.newWords.split(',')
+              Array.isArray(
+                dateGameStatistic[getTodayDate()].audioCall.newWords
+              )
+                ? dateGameStatistic[getTodayDate()].audioCall.newWords
+                : dateGameStatistic[getTodayDate()].audioCall.newWords.split(
+                    ','
+                  )
             )
           : new Set();
       } else {

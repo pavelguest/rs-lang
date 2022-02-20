@@ -15,6 +15,8 @@ class AudioCallView {
     questionDiv.addEventListener('click', () => {
       soundPlay(this.audioCall.getQuestion());
     });
+    const audio = this.audioCall.getQuestion();
+    audio.play();
     const answersContainer = document.createElement('div');
     answersContainer.classList.add('audio-call__answers-container');
     this.audioCall.getAnswers().forEach((elem, index) => {

@@ -25,3 +25,5 @@ import './components/games/audioCall/AudioCall';
 import './components/games/audioCall/AudioCallView';
 import './components/games/audioCall/AudioCallViewWrapper';
 import './components/games/StartGameDelay';
+
+import './components/games/GamesStatistic';

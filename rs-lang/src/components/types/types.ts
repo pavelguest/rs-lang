@@ -26,6 +26,8 @@ export interface IState {
   learnedWords: string[];
   gamesStatistic: any;
   wordsStatistic: IWordsStatistics;
+  newSprintWords?: any;
+  newAudioCallWords?: any;
 }
 interface IWordsStatistics {
   [x: string]: IRightWord;

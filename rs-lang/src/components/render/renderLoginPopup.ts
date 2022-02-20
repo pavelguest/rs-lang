@@ -4,6 +4,7 @@ import { storage } from '../storage/localstorage';
 import { startingPage } from './startingPage';
 import { constants } from '../helpers/constansts';
 import { bookPage } from './bookPage';
+import { state } from '../storage/state';
 class RenderLoginPopup {
   renderLoginForm(container: HTMLElement) {
     const popup = document.createElement('div');
@@ -112,6 +113,15 @@ class RenderLoginPopup {
         storage.isAuthorised = true;
         storage.tokenExpirationDate = Date.now() + constants.TOKEN_EXPIRE_TIME;
         storage.save();
+        state.gamesStatistic = {};
+        const dateGameStatistic = JSON.parse(
+          localStorage.getItem(`${storage.idUser}-gamesStatistic`)!
+        );
+        const dateWordsStatistic = JSON.parse(
+          localStorage.getItem(`${storage.idUser}-wordsStatistic`)!
+        );
+        state.gamesStatistic = { ...dateGameStatistic };
+        state.wordsStatistic = { ...dateWordsStatistic };
         startingPage.render();
         await bookPage.getAllDifficult();
         bookPage.getAllLearned();

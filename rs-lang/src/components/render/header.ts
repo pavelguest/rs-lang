@@ -6,6 +6,10 @@ import { gamePreload } from '../games/GamePreload';
 import { Button } from '../buttons/Button';
 import { vocabularyPage } from './vocabularyPage';
 import { storage } from '../storage/localstorage';
+import { getTodayDate } from '../helpers/helpers';
+import { startGameDelay } from '../games/StartGameDelay';
+import sprintViewWrapper from '../games/sprint';
+import { audioCallViewWrapper } from '../games/audioCall/AudioCallViewWrapper';
 class Header {
   render() {
     const header = document.createElement('header');
@@ -66,20 +70,43 @@ class Header {
     statPage?.addEventListener('click', () => {
       this.deleteActiveClass();
       state.currentPage = 'stats';
+      if (localStorage.getItem('gamesStatistic')) {
+        const data = JSON.parse(localStorage.getItem('gamesStatistic')!);
+        state.gamesStatistic = { ...data };
+        console.log(state.gamesStatistic[getTodayDate()]);
+      }
       statsPage.render();
     });
     document.querySelector('.sprint__link')?.addEventListener('click', () => {
-      if (state.currentPage === 'main') {
+      if (state.currentPage === 'book') {
+        startGameDelay.awaitStartGameRender(this.sprint.bind(this));
+        sprintViewWrapper.sprintView.sprint.getWordsArrForBook(
+          state.group,
+          state.page
+        );
+      } else {
         gamePreload.render('sprint');
       }
     });
     document
       .querySelector('.audio-call__link')
       ?.addEventListener('click', () => {
-        if (state.currentPage === 'main') {
+        if (state.currentPage === 'book') {
+          startGameDelay.awaitStartGameRender(this.audioCall.bind(this));
+          audioCallViewWrapper.audioCallView.audioCall.getWordsArrForBook(
+            state.group,
+            state.page
+          );
+        } else {
           gamePreload.render('audiocall');
         }
       });
+  }
+  sprint() {
+    sprintViewWrapper.render();
+  }
+  audioCall() {
+    audioCallViewWrapper.render();
   }
 
   deleteActiveClass() {

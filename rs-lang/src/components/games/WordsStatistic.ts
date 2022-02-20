@@ -1,3 +1,4 @@
+import { storage } from '../storage/localstorage';
 import { state } from '../storage/state';
 import { IRightWord } from '../types/types';
 
@@ -10,15 +11,18 @@ class WordsStatistic {
       } else {
         obj.inCorrect += 1;
       }
-      state.wordsStatistic.wordId = { ...obj };
+      state.wordsStatistic[wordId] = { ...obj };
     } else {
       if (isAnswer) {
-        state.wordsStatistic[`${wordId}`].correct += 1;
+        state.wordsStatistic[wordId].correct += 1;
       } else {
-        state.wordsStatistic[`${wordId}`].inCorrect += 1;
+        state.wordsStatistic[wordId].inCorrect += 1;
       }
     }
-    console.log(state.wordsStatistic);
+    localStorage.setItem(
+      `${storage.idUser}-wordsStatistic`,
+      JSON.stringify(state.wordsStatistic)
+    );
   }
 }
 

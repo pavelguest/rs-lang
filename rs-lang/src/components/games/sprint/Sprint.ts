@@ -10,12 +10,18 @@ import ResultGamePopup from '../ResultGamePopup';
 import { worldsRepository } from '../../services/WordsRepository';
 import { state } from '../../storage/state';
 import { wordsStatistic } from '../WordsStatistic';
+import { gamePreload } from '../GamePreload';
+import { gamesStatistic } from '../GamesStatistic';
 
 class Sprint {
   wordsArr: IWords[] = [];
   learnWords: ILearnWords[] = [];
   idLearnWords: string[] = [];
   currentQuestion: number = 0;
+  numberOfCorrectAnswers: number = 0;
+  numberAllAnswers: number = 0;
+  longestChain: number = 0;
+  currentLongestChain: number = 0;
   score: number = 0;
   generalScore: number = 0;
   countTimerGame: number = 59;
@@ -40,7 +46,7 @@ class Sprint {
     return this.question;
   }
   isEndQuestionsGame() {
-    if (this.currentQuestion === 19) {
+    if (this.currentQuestion === 20) {
       this.currentQuestion = 0;
     }
   }
@@ -58,6 +64,18 @@ class Sprint {
   setScore() {
     this.generalScore += 10;
   }
+  setLongestChain(isRight: boolean) {
+    if (isRight) {
+      this.currentLongestChain += 1;
+    } else {
+      if (this.currentLongestChain > this.longestChain) {
+        this.longestChain = this.currentLongestChain;
+        this.currentLongestChain = 0;
+      } else {
+        this.currentLongestChain = 0;
+      }
+    }
+  }
   isAnswerRight(isRight: boolean) {
     if (
       (this.answer === this.answerRight && isRight) ||
@@ -67,15 +85,22 @@ class Sprint {
       this.setScore();
       soundPlay(rightAnswerSound);
       this.isAnswer = true;
+      this.numberOfCorrectAnswers += 1;
     } else {
       soundPlay(wrongAnswerSound);
       this.score = 0;
       this.isAnswer = false;
     }
+    this.setLongestChain(this.isAnswer);
     if (this.score > 3) {
       this.generalScore += 40;
       this.score = 0;
     }
+    this.numberAllAnswers += 1;
+    gamesStatistic.setNewWordsGame(
+      this.wordsArr[this.currentQuestion].id,
+      'Sprint'
+    );
     wordsStatistic.setAnswerWords(
       this.wordsArr[this.currentQuestion].id,
       this.isAnswer
@@ -97,7 +122,6 @@ class Sprint {
         }
       });
     }
-
     this.currentQuestion += 1;
   }
 
@@ -112,9 +136,18 @@ class Sprint {
         );
         document.querySelector('.sprint-wrapper')!.append(popup);
         clearInterval(interval);
+        gamesStatistic.setStatistic('sprint', {
+          newWords: [...state.newSprintWords],
+          numberAllAnswer: this.numberAllAnswers,
+          numberCorrectAnswer: this.numberOfCorrectAnswers,
+          chain: this.longestChain,
+        });
         this.generalScore = 0;
         this.countTimerGame = 59;
         this.score = 0;
+        this.numberAllAnswers = 0;
+        this.numberOfCorrectAnswers = 0;
+        this.longestChain = 0;
         this.learnWords = [];
         victoryGameSound.play();
       }

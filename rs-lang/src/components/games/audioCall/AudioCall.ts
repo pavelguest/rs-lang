@@ -6,7 +6,9 @@ import {
   wrongAnswerSound,
 } from '../../helpers/sounds';
 import { worldsRepository } from '../../services/WordsRepository';
+import { state } from '../../storage/state';
 import { ILearnWords, IWords } from '../../types/types';
+import { gamesStatistic } from '../GamesStatistic';
 import ResultGamePopup from '../ResultGamePopup';
 import { wordsStatistic } from '../WordsStatistic';
 
@@ -17,6 +19,10 @@ class AudioCall {
   answerRight: string = '';
   answers: string[] = [];
   currentQuestion: number = 0;
+  numberOfCorrectAnswers: number = 0;
+  numberAllAnswers: number = 0;
+  longestChain: number = 0;
+  currentLongestChain: number = 0;
   isAnswer: boolean = false;
 
   async getWordsArr(group: number) {
@@ -28,12 +34,35 @@ class AudioCall {
     const data = await worldsRepository.all(page, group);
     this.wordsArr = [...data];
   }
+  setLongestChain(isRight: boolean) {
+    if (isRight) {
+      this.currentLongestChain += 1;
+    } else {
+      if (this.currentLongestChain > this.longestChain) {
+        this.longestChain = this.currentLongestChain;
+        this.currentLongestChain = 0;
+      } else {
+        this.currentLongestChain = 0;
+      }
+    }
+  }
   isEndQuestionsGame() {
     if (this.currentQuestion === 20) {
+      gamesStatistic.setStatistic('audioCall', {
+        newWords: [...state.newAudioCallWords],
+        numberAllAnswer: this.numberAllAnswers,
+        numberCorrectAnswer: this.numberOfCorrectAnswers,
+        chain: this.longestChain,
+      });
+
       const popup = new ResultGamePopup('audioCall').render(this.learnWords, 0);
       document.querySelector('.audio-call-wrapper')!.append(popup);
       this.learnWords = [];
       this.currentQuestion = 0;
+      this.currentLongestChain = 0;
+      this.longestChain = 0;
+      this.numberAllAnswers = 0;
+      this.numberOfCorrectAnswers = 0;
       victoryGameSound.play();
       return true;
     }
@@ -72,10 +101,17 @@ class AudioCall {
     if (word === this.answerRight) {
       soundPlay(rightAnswerSound);
       this.isAnswer = true;
+      this.numberOfCorrectAnswers += 1;
     } else {
       soundPlay(wrongAnswerSound);
       this.isAnswer = false;
     }
+    this.numberAllAnswers += 1;
+    this.setLongestChain(this.isAnswer);
+    gamesStatistic.setNewWordsGame(
+      this.wordsArr[this.currentQuestion].id,
+      'AudioCall'
+    );
     wordsStatistic.setAnswerWords(
       this.wordsArr[this.currentQuestion].id,
       this.isAnswer

@@ -1,6 +1,8 @@
 import { header } from './header';
 import { startingLoginButton } from '../buttons/startingLoginButtons';
 import { footer } from './footer';
+import { state } from '../storage/state';
+import { getTodayDate } from '../helpers/helpers';
 class StatsPage {
   render() {
     document.body.innerHTML = '';
@@ -39,14 +41,19 @@ class StatsPage {
       </div>
       <div class="stats-global__new">
         <h3>
-          <b>0</b>
+          <b>${
+            (state.newAudioCallWords.size ? state.newAudioCallWords.size : 0) +
+            (state.newSprintWords.size ? state.newSprintWords.size : 0)
+          }</b>
         </h3>
         <p>Новых слов</p>
       </div>
       <div class="stats-global__accuracy">
         <p>Правильных ответов</p>
-        <div class="progress-circle p0">
-          <span>0%</span>
+        <div class="progress-circle p${this.getAllStatAccuracy()} ${
+        +this.getAllStatAccuracy() > 50 ? 'over50' : ''
+      }">
+          <span>${this.getAllStatAccuracy()}%</span>
           <div class="left-half-clipper">
             <div class="first50-bar"></div>
             <div class="value-bar"></div>
@@ -60,20 +67,22 @@ class StatsPage {
       
         <div class="stats-sprint__new">
           <h3>
-            <b>0</b>
+            <b>${state.newSprintWords.size ? state.newSprintWords.size : 0}</b>
           </h3>
           <p>Новых слов</p>
         </div>
         <div class="stats-sprint__streak">
           <h3>
-            <b>0</b>
+            <b>${state.gamesStatistic[getTodayDate()]?.sprint?.chain ?? 0}</b>
           </h3>
           <p>Серия правильных ответов</p>
         </div>
         <div class="stats-sprint__accuracy">
           <p>Правильных ответов</p>
-          <div class="progress-circle p0">
-            <span>0%</span>
+          <div class="progress-circle p${this.getSprintAccuracyStat()} ${
+        +this.getSprintAccuracyStat() > 50 ? 'over50' : ''
+      }">
+            <span>${this.getSprintAccuracyStat()}%</span>
             <div class="left-half-clipper">
               <div class="first50-bar"></div>
               <div class="value-bar"></div>
@@ -86,20 +95,26 @@ class StatsPage {
         
           <div class="stats-audiochallenge__new">
             <h3>
-              <b>0</b>
+              <b>${
+                state.newAudioCallWords.size ? state.newAudioCallWords.size : 0
+              }</b>
             </h3>
             <p>Новых слов</p>
           </div>
           <div class="stats-audiochallenge__streak">
             <h3>
-              <b>0</b>
+              <b>${
+                state.gamesStatistic[getTodayDate()]?.audioCall?.chain ?? 0
+              }</b>
             </h3>
             <p>Серия правильных ответов</p>
           </div>
           <div class="stats-audiochallenge__accuracy">
             <p>Правильных ответов</p>
-            <div class="progress-circle p0">
-              <span>0%</span>
+            <div class="progress-circle p${this.getAudioCallAccuracyStat()} ${
+        +this.getAudioCallAccuracyStat() > 50 ? 'over50' : ''
+      }">
+              <span>${this.getAudioCallAccuracyStat()}%</span>
               <div class="left-half-clipper">
                 <div class="first50-bar"></div>
                 <div class="value-bar"></div>
@@ -112,6 +127,45 @@ class StatsPage {
     );
     wrapper.append(statsWrapper);
     document.body.append(footer.render());
+  }
+  getSprintAccuracyStat() {
+    const numCorrect =
+      state.gamesStatistic[getTodayDate()]?.sprint?.numberCorrectAnswer ?? 0;
+    const numAll =
+      state.gamesStatistic[getTodayDate()]?.sprint?.numberAllAnswer ?? 0;
+    return numCorrect === 0 ? 0 : ((numCorrect / numAll) * 100).toFixed();
+  }
+  getAudioCallAccuracyStat() {
+    const numCorrect =
+      state.gamesStatistic[getTodayDate()]?.audioCall?.numberCorrectAnswer ?? 0;
+    const numAll =
+      state.gamesStatistic[getTodayDate()]?.audioCall?.numberAllAnswer ?? 0;
+    return numCorrect === 0 ? 0 : ((numCorrect / numAll) * 100).toFixed();
+  }
+  getAllStatAccuracy() {
+    const numCorrectSprint =
+      state.gamesStatistic[getTodayDate()]?.sprint?.numberCorrectAnswer ?? 0;
+    const numAllSprint =
+      state.gamesStatistic[getTodayDate()]?.sprint?.numberAllAnswer ?? 0;
+    const numCorrectAudioCall =
+      state.gamesStatistic[getTodayDate()]?.audioCall?.numberCorrectAnswer ?? 0;
+    const numAllAudioCall =
+      state.gamesStatistic[getTodayDate()]?.audioCall?.numberAllAnswer ?? 0;
+    let result;
+    if (numAllAudioCall && numAllSprint) {
+      result = (
+        ((numCorrectAudioCall + numCorrectSprint) /
+          (numAllAudioCall + numAllSprint)) *
+        100
+      ).toFixed();
+    } else if (numAllAudioCall) {
+      result = ((numCorrectAudioCall / numAllAudioCall) * 100).toFixed();
+    } else if (numAllSprint) {
+      result = ((numCorrectSprint / numAllSprint) * 100).toFixed();
+    } else {
+      result = 0;
+    }
+    return result;
   }
 }
 export const statsPage = new StatsPage();

@@ -37,7 +37,8 @@
   position: absolute; /* needed for clipping */
   width: 5em;
   height: 5em;
-  /* a round circle */
+
+/* a round circle */
   border-radius: 50%;
   clip: rect(0, 5em, 5em, 2.5em); /* clips the whole left half*/
 }
@@ -50,7 +51,8 @@
    then it is cut to display only the left half, then rotated clockwise
    to escape the outer clipping path.*/
   position: absolute; /*needed for clipping*/
-  /*background-color: #4D642D;*/ /* for debug */
+
+/*background-color: #4D642D;*/ /* for debug */
   box-sizing: border-box;
   width: 5em;
   height: 5em;
@@ -64,7 +66,7 @@
   position: absolute; /*needed for clipping*/
   width: 5em;
   height: 5em;
-  background-color: #53777a;
+  background-color: #55b559;
   border-radius: 50%;
   clip: rect(0, 5em, 5em, 2.5em);
 }

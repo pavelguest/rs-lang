@@ -1,0 +1,68 @@
+
+.team-title {
+  margin: 20px 0;
+  text-align: center;
+}
+.pavel-github,
+.denis-github {
+  display: block;
+  width: 25px;
+  height: 25px;
+  background: url("./../images/github.png");
+  background-size: 100% 100%;
+}
+.team-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  row-gap: 30px;
+}
+.team-pavel,
+.team-denis {
+  display: flex;
+  width: 50%;
+  box-shadow: 0 0 20px 0 rgb(0 0 0 / 20%), 0 5px 5px 0 rgb(0 0 0 / 24%);
+}
+.denis-photo img,
+.pavel-photo img {
+  width: 220px;
+  height: 290px;
+}
+.pavel-position,
+.denis-position {
+  font-size: 14px;
+  color: rgb(141, 141, 141);
+}
+.pavel-photo,
+.denis-photo {
+  height: 290px;
+}
+.pavel-content,
+.denis-content {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 40px;
+  line-height: 1.5;
+
+  row-gap: 10px;
+}
+
+.denis-link,
+.pavel-link {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.denis-title,
+.pavel-title {
+  font-weight: 500;
+  font-size: 24px;
+}
+.pavel-responsibilities {
+  .denis-responsibilities {
+    font-size: 18px;
+  }
+}

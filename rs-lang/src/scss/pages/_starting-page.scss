@@ -1,4 +1,5 @@
 
+
 .team-title {
   margin: 20px 0;
   text-align: center;
@@ -11,7 +12,35 @@
   background: url("./../images/github.png");
   background-size: 100% 100%;
 }
-.team-wrapper {
+.app-info__container {
+  margin-bottom: 100px;
+}
+.app-main__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+  margin-top: 50px;
+  margin-bottom: 100px;
+  background: url("./../images/bg.jpg") no-repeat;
+  background-size: cover;
+  box-shadow: 0 0 20px 0 rgb(0 0 0 / 20%), 0 5px 5px 0 rgb(0 0 0 / 24%);
+
+  row-gap: 50px;
+  h1 {
+    padding: 20px;
+    font-size: 70px;
+    color: white;
+    border: 4px solid white;
+  }
+  p {
+    font-size: 40px;
+    color: rgb(56, 56, 54);
+  }
+}
+.team-wrapper,
+.app-info__wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -20,7 +49,8 @@
   row-gap: 30px;
 }
 .team-pavel,
-.team-denis {
+.team-denis,
+.app-info__chapter {
   display: flex;
   width: 50%;
   box-shadow: 0 0 20px 0 rgb(0 0 0 / 20%), 0 5px 5px 0 rgb(0 0 0 / 24%);

@@ -132,10 +132,6 @@ class Sprint {
         }
       });
     }
-    console.log(this.wordsArr);
-    console.log(this.idLearnWords);
-    console.log(this.learnWords);
-
     this.currentQuestion += 1;
   }
 

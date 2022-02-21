@@ -11,8 +11,6 @@ class GamesStatistic {
       );
       state.gamesStatistic = { ...date };
     }
-    console.log(state.gamesStatistic[todayDate]);
-
     if (!state.gamesStatistic.hasOwnProperty(todayDate)) {
       if (typeGame === 'sprint') {
         state.gamesStatistic[todayDate] = { sprint: { ...obj } };

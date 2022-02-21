@@ -75,9 +75,6 @@ class GamesNavButtons {
   async getNoLearnedWords() {
     const notLearnedWords =
       await difficultWordsService.getAllUserNoLearnedWords();
-    console.log('notLearnedWords', notLearnedWords);
-    console.log('state', state.learnedWords);
-
     if (typeof notLearnedWords === 'number') return;
     const notLearnedWordsFilteredBePage = notLearnedWords.filter(
       (word: IWords) => {
@@ -86,9 +83,7 @@ class GamesNavButtons {
         );
       }
     );
-    console.log('notLearnedWords', notLearnedWordsFilteredBePage);
     const last20Words = notLearnedWordsFilteredBePage.slice(-20);
-    console.log('last20Words', last20Words);
     return last20Words;
   }
 }

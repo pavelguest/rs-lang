@@ -80,7 +80,6 @@ class AudioCall {
     this.question.src = `https://rsslang.herokuapp.com/${
       this.wordsArr[this.currentQuestion].audio
     }`;
-    console.log(this.question);
     this.question.play();
     return this.question;
   }
@@ -92,8 +91,6 @@ class AudioCall {
       this.getWrongAnswers();
     }
     this.answers.sort(() => Math.round(Math.random() * 100) - 50);
-    console.log(this.answerRight, this.answers);
-
     return this.answers;
   }
   getWrongAnswers() {

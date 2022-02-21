@@ -70,11 +70,6 @@ class Header {
     statPage?.addEventListener('click', () => {
       this.deleteActiveClass();
       state.currentPage = 'stats';
-      if (localStorage.getItem('gamesStatistic')) {
-        const data = JSON.parse(localStorage.getItem('gamesStatistic')!);
-        state.gamesStatistic = { ...data };
-        console.log(state.gamesStatistic[getTodayDate()]);
-      }
       statsPage.render();
     });
     document.querySelector('.sprint__link')?.addEventListener('click', () => {

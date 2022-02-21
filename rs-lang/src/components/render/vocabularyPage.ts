@@ -15,7 +15,7 @@ class VocabularyPage {
     header.addlisteners();
     document
       .querySelector('.header__wrapper')
-      ?.prepend(startingLoginButton.render());
+      ?.append(startingLoginButton.render());
     document
       .querySelector('.vocabulary-page__link')
       ?.classList.add('active-page');

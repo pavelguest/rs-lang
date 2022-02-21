@@ -13,7 +13,7 @@ class StatsPage {
     header.addlisteners();
     document
       .querySelector('.header__wrapper')
-      ?.prepend(startingLoginButton.render());
+      ?.append(startingLoginButton.render());
     document.querySelector('.stats-page__link')?.classList.add('active-page');
 
     const main = document.createElement('main');

@@ -48,7 +48,7 @@ class StartingPage {
       <div class="app-info__wrapper">
       <div class="app-info__chapter">
       <div class="pavel-photo">
-          <img src="../../images/textbook.jpg" alt="Pavel photo" />
+          <img src="./images/textbook.jpg" alt="Pavel photo" />
         </div>
         <div class="pavel-content">
           <h3 class="pavel-title">Учебник</h3>
@@ -59,7 +59,7 @@ class StartingPage {
       </div>
       <div class="app-info__chapter">
       <div class="pavel-photo">
-          <img src="../../images/dictionary.jpg" alt="Pavel photo" />
+          <img src="./images/dictionary.jpg" alt="Pavel photo" />
         </div>
         <div class="pavel-content">
           <h3 class="pavel-title">Словарь</h3>
@@ -70,7 +70,7 @@ class StartingPage {
       </div>
       <div class="app-info__chapter">
       <div class="pavel-photo">
-          <img src="../../images/games.jpg" alt="Pavel photo" />
+          <img src="./images/games.jpg" alt="Pavel photo" />
         </div>
         <div class="pavel-content">
           <h3 class="pavel-title">Игры</h3>
@@ -81,7 +81,7 @@ class StartingPage {
       </div>
       <div class="app-info__chapter">
       <div class="pavel-photo">
-          <img src="../../images/statistic.jpg" alt="Pavel photo" />
+          <img src="./images/statistic.jpg" alt="Pavel photo" />
         </div>
         <div class="pavel-content">
           <h3 class="pavel-title">Статистика</h3>
@@ -103,7 +103,7 @@ class StartingPage {
     <div class="team-wrapper">
       <div class="team-pavel">
         <div class="pavel-photo">
-          <img src="../../images/Pavel.jpg" alt="Pavel photo" />
+          <img src="./images/Pavel.jpg" alt="Pavel photo" />
         </div>
         <div class="pavel-content">
           <h3 class="pavel-title">Пучинский Павел</h3>
@@ -121,7 +121,7 @@ class StartingPage {
       </div>
       <div class="team-denis">
         <div class="denis-photo">
-          <img src="./../images/Denis.jpg" alt="Denis photo" />
+          <img src="./images/Denis.jpg" alt="Denis photo" />
         </div>
         <div class="denis-content">
           <h3 class="denis-title">Гусарь Денис</h3>

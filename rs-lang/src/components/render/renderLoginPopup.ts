@@ -34,7 +34,7 @@ class RenderLoginPopup {
       'login',
       this.login.bind(this)
     ).render();
-    button.type = 'submit';
+    /*  button.type = 'submit'; */
     formLogin.append(button);
     const pLogin = document.createElement('p');
     pLogin.classList.add('login-text');
@@ -104,6 +104,7 @@ class RenderLoginPopup {
     ) as HTMLInputElement;
     const password = passwordInput.value;
     if (emailInput.checkValidity() && passwordInput.checkValidity()) {
+      event?.preventDefault();
       const response = await authorisation.login(email, password);
       if (response.status === 200) {
         const loginResponse = await response.json();

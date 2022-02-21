@@ -37,20 +37,23 @@
   justify-content: start;
   align-items: start;
   width: calc(100%/2 - 10px);
+  height: 350px;
   box-shadow: 0 0 20px 0 rgb(0 0 0 / 20%), 0 5px 5px 0 rgb(0 0 0 / 24%);
 }
 .card-word__content {
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
-  justify-content: start;
-  align-items: start;
+  justify-content: space-between;
+  align-items: stretch ;
+  height: 350px;
   padding: 20px;
 
   row-gap: 25px;
 }
 .card-word__image img {
-  width: 240px;
-  height: 281px;
+  width: 300px;
+  height: 350px;
   padding: 20px;
 
   object-fit: cover;
@@ -63,13 +66,11 @@
 }
 
 .difficult-learned__wrapper {
-  position: absolute;
-  right: 20px;
-  bottom: 20px;
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: right;
-  align-items: center;
+  align-items: flex-end;
 
   row-gap: 5px;
   & button {
@@ -78,8 +79,10 @@
 }
 .difficult-stamp,
 .learned-stamp {
+  width: 200px;
   font-size: 20px;
   font-family: Stamp;
+  text-align: center;
   text-transform: uppercase;
 }
 
@@ -104,3 +107,5 @@
   background-color: pink;
   ;
 }
+
+@import "./book-page-adaptive";

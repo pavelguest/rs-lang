@@ -19,7 +19,7 @@ class BookPage {
     header.addlisteners();
     document
       .querySelector('.header__wrapper')
-      ?.prepend(startingLoginButton.render());
+      ?.append(startingLoginButton.render());
     document.querySelector('.book-page__link')?.classList.add('active-page');
     const main = document.createElement('main');
     main.classList.add('main');

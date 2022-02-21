@@ -118,7 +118,7 @@ export class CardWord {
       ).render();
       buttonAddToLearned.classList.add(`${state.difficultyColor}`);
       divWrapper.append(buttonAddToLearned);
-      div.append(divWrapper);
+      divCardContent.append(divWrapper);
 
       const correctDiv = document.createElement('div');
       correctDiv.classList.add('correct-answers');

@@ -65,6 +65,21 @@ class DifficultWordsService {
     const result = await response.json();
     return result;
   }
+  async getAllUserNoLearnedWords() {
+    const response = await authorisation.fetchWithRefreshingToken(
+      `${this.baseUrl}/users/${storage.idUser}/aggregatedWords?wordsPerPage=1000&filter={"$and":[{"group": ${state.group}}]}`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${storage.token}`,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    const result = await response.json();
+    return result[0].paginatedResults;
+  }
   async getAllLearnedWordsDaily() {
     const response = await authorisation.fetchWithRefreshingToken(
       `${this.baseUrl}/users/${

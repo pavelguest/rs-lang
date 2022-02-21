@@ -75,6 +75,7 @@ class Header {
     document.querySelector('.sprint__link')?.addEventListener('click', () => {
       if (state.currentPage === 'book') {
         startGameDelay.awaitStartGameRender(this.sprint.bind(this));
+        sprintViewWrapper.sprintView.sprint.id = 'id';
         sprintViewWrapper.sprintView.sprint.getWordsArrForBook(
           state.group,
           state.page
@@ -88,6 +89,7 @@ class Header {
       ?.addEventListener('click', () => {
         if (state.currentPage === 'book') {
           startGameDelay.awaitStartGameRender(this.audioCall.bind(this));
+          audioCallViewWrapper.audioCallView.audioCall.id = 'id';
           audioCallViewWrapper.audioCallView.audioCall.getWordsArrForBook(
             state.group,
             state.page

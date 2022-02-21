@@ -4,6 +4,8 @@ import { soundPlay } from '../helpers/sounds';
 import { ILearnWords } from '../types/types';
 import { gamePreload } from './GamePreload';
 import { audioCallViewWrapper } from './audioCall/AudioCallViewWrapper';
+import { storage } from '../storage/localstorage';
+import { gamesNavButtons } from '../buttons/gamesNavButtons';
 
 class ResultGamePopup {
   typeGame: string;
@@ -89,10 +91,11 @@ class ResultGamePopup {
     }
   }
   tryAgain() {
-    gamePreload.selectGroupGame(
-      sprintViewWrapper.sprintView.sprint.currentLvl,
-      this.typeGame
-    );
+    if (this.typeGame === 'sprint') {
+      gamesNavButtons.startSprint();
+    } else {
+      gamesNavButtons.startAudioChallenge();
+    }
   }
 }
 

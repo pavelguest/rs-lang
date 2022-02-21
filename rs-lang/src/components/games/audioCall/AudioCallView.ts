@@ -85,7 +85,6 @@ class AudioCallView {
     this.renderPopupQuestion();
   }
   nextQuestion() {
-    const button = document.querySelector('.button__dont-know')!.innerHTML;
     if (!this.isAnswer) {
       this.isAnswer = true;
       this.isAnswerRight(' ');

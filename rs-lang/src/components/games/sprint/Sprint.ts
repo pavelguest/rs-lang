@@ -12,8 +12,10 @@ import { state } from '../../storage/state';
 import { wordsStatistic } from '../WordsStatistic';
 import { gamePreload } from '../GamePreload';
 import { gamesStatistic } from '../GamesStatistic';
+import { storage } from '../../storage/localstorage';
 
 class Sprint {
+  id: string = 'id';
   wordsArr: IWords[] = [];
   learnWords: ILearnWords[] = [];
   idLearnWords: string[] = [];
@@ -40,13 +42,16 @@ class Sprint {
     const data = await worldsRepository.all(page, group);
     this.wordsArr = [...data];
   }
+  async getWordsArrForUser(data: IWords[]) {
+    this.wordsArr = [...data];
+  }
   getCurrentQuestion() {
     this.question = this.wordsArr[this.currentQuestion].word;
     this.answerRight = this.wordsArr[this.currentQuestion].wordTranslate;
     return this.question;
   }
   isEndQuestionsGame() {
-    if (this.currentQuestion === 20) {
+    if (this.currentQuestion === this.wordsArr.length) {
       this.currentQuestion = 0;
     }
   }
@@ -77,6 +82,7 @@ class Sprint {
     }
   }
   isAnswerRight(isRight: boolean) {
+    const idNumber = this.id !== 'id' ? '_id' : 'id';
     if (
       (this.answer === this.answerRight && isRight) ||
       (this.answer !== this.answerRight && !isRight)
@@ -97,31 +103,39 @@ class Sprint {
       this.score = 0;
     }
     this.numberAllAnswers += 1;
-    gamesStatistic.setNewWordsGame(
-      this.wordsArr[this.currentQuestion].id,
-      'Sprint'
-    );
-    wordsStatistic.setAnswerWords(
-      this.wordsArr[this.currentQuestion].id,
-      this.isAnswer
-    );
+    if (storage.isAuthorised) {
+      gamesStatistic.setNewWordsGame(
+        this.wordsArr[this.currentQuestion][idNumber],
+        'Sprint'
+      );
+      wordsStatistic.setAnswerWords(
+        this.wordsArr[this.currentQuestion][idNumber],
+        this.isAnswer
+      );
+    }
     const resultObj = {
-      id: this.wordsArr[this.currentQuestion].id,
+      id: this.wordsArr[this.currentQuestion][idNumber],
       word: this.wordsArr[this.currentQuestion].word,
       audio: this.wordsArr[this.currentQuestion].audio,
       wordTranslate: this.wordsArr[this.currentQuestion].wordTranslate,
       isAnswer: this.isAnswer,
     };
-    if (!this.idLearnWords.includes(this.wordsArr[this.currentQuestion].id)) {
-      this.idLearnWords.push(this.wordsArr[this.currentQuestion].id);
+    if (
+      !this.idLearnWords.includes(this.wordsArr[this.currentQuestion][idNumber])
+    ) {
+      this.idLearnWords.push(this.wordsArr[this.currentQuestion][idNumber]);
       this.learnWords.push(resultObj);
     } else {
       this.learnWords.forEach((elem, index, arr) => {
-        if (elem.id === this.wordsArr[this.currentQuestion].id) {
+        if (elem.id === this.wordsArr[this.currentQuestion][idNumber]) {
           elem.isAnswer = this.isAnswer;
         }
       });
     }
+    console.log(this.wordsArr);
+    console.log(this.idLearnWords);
+    console.log(this.learnWords);
+
     this.currentQuestion += 1;
   }
 
@@ -136,12 +150,14 @@ class Sprint {
         );
         document.querySelector('.sprint-wrapper')!.append(popup);
         clearInterval(interval);
-        gamesStatistic.setStatistic('sprint', {
-          newWords: [...state.newSprintWords],
-          numberAllAnswer: this.numberAllAnswers,
-          numberCorrectAnswer: this.numberOfCorrectAnswers,
-          chain: this.longestChain,
-        });
+        if (storage.isAuthorised) {
+          gamesStatistic.setStatistic('sprint', {
+            newWords: [...state.newSprintWords],
+            numberAllAnswer: this.numberAllAnswers,
+            numberCorrectAnswer: this.numberOfCorrectAnswers,
+            chain: this.longestChain,
+          });
+        }
         this.generalScore = 0;
         this.countTimerGame = 59;
         this.score = 0;

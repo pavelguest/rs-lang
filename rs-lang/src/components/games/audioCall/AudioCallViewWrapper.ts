@@ -41,6 +41,12 @@ class AudioCallViewWrapper {
   }
   closeGame() {
     startingPage.render();
+    this.audioCallView.audioCall.learnWords = [];
+    this.audioCallView.audioCall.currentQuestion = 0;
+    this.audioCallView.audioCall.currentLongestChain = 0;
+    this.audioCallView.audioCall.longestChain = 0;
+    this.audioCallView.audioCall.numberAllAnswers = 0;
+    this.audioCallView.audioCall.numberOfCorrectAnswers = 0;
   }
 }
 

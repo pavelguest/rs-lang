@@ -26,3 +26,19 @@
   font-size: 50px;
   transform: translate(-50%, -50%);
 }
+.popup-container__not-enough {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  height: 500px;
+  font-size: 50px;
+  box-shadow: 0 0 10px 0 rgb(0 0 0 / 20%);
+  transform: translate(-50%, -50%);
+
+  row-gap: 30px;
+}

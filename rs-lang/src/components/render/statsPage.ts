@@ -175,7 +175,6 @@ class StatsPage {
       await difficultWordsService.getAllLearnedWordsDaily();
     const arrLearnedWords = paginatedResults.paginatedResults;
     const arr = arrLearnedWords.map((elem: JSONValue) => elem._id);
-    console.log(arr);
     return arr.length;
   }
 }

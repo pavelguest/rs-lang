@@ -24,9 +24,77 @@ class StartingPage {
     main.append(wrapper);
 
     document.body.append(main);
-
+    const appMain = document.createElement('div');
+    const appAbout = document.createElement('div');
     const teamAbout = document.createElement('div');
+    wrapper.append(appMain);
+    wrapper.append(appAbout);
     wrapper.append(teamAbout);
+
+    appMain.insertAdjacentHTML(
+      'beforeend',
+      `
+    <div class="app-main__container">
+    <h1>RS LANG</h1>
+    <p>Маленькими шагами мы достигаем больших результатов. Присоединяйся к обучению</p>
+    </div>
+    `
+    );
+    appAbout.insertAdjacentHTML(
+      'beforeend',
+      `
+      <div class="app-info__container">
+      <h2 class="team-title">О приложении</h2>
+      <div class="app-info__wrapper">
+      <div class="app-info__chapter">
+      <div class="pavel-photo">
+          <img src="../../images/textbook.jpg" alt="Pavel photo" />
+        </div>
+        <div class="pavel-content">
+          <h3 class="pavel-title">Учебник</h3>
+          <div class="pavel-responsibilities">
+          Учебник состоит из шести разделов. В каждом разделе 30 страниц по 20 слов. Представлены перевод слова, тематическое изображение, а также произношение как слова отдельно, так и в составе словосочетания.
+          </div>
+        </div>
+      </div>
+      <div class="app-info__chapter">
+      <div class="pavel-photo">
+          <img src="../../images/dictionary.jpg" alt="Pavel photo" />
+        </div>
+        <div class="pavel-content">
+          <h3 class="pavel-title">Словарь</h3>
+          <div class="pavel-responsibilities">
+          Словарь содержит списки изучаемых слов, которые вызывают затруднения.
+          </div>
+        </div>
+      </div>
+      <div class="app-info__chapter">
+      <div class="pavel-photo">
+          <img src="../../images/games.jpg" alt="Pavel photo" />
+        </div>
+        <div class="pavel-content">
+          <h3 class="pavel-title">Игры</h3>
+          <div class="pavel-responsibilities">
+          В этом разделе есть 2 игры: Спринт и Аудиовызов, которые помогут вам в игровой форме закрепить знания и пополнить словарный запас.
+          </div>
+        </div>
+      </div>
+      <div class="app-info__chapter">
+      <div class="pavel-photo">
+          <img src="../../images/statistic.jpg" alt="Pavel photo" />
+        </div>
+        <div class="pavel-content">
+          <h3 class="pavel-title">Статистика</h3>
+          <div class="pavel-responsibilities">
+            В этом разделе можно увидеть весь прогресс обучения, где представлены данные за текущий день. Краткосрочная информация о мини-играх и о словах.
+        </div>
+      </div>
+      </div>
+      
+      </div>
+    `
+    );
+
     teamAbout.insertAdjacentHTML(
       'beforeend',
       `

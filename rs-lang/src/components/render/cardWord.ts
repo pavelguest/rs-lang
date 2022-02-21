@@ -13,6 +13,7 @@ import { Button } from '../buttons/Button';
 import { storage } from '../storage/localstorage';
 import { bookPage } from './bookPage';
 import { removeFromArray } from '../helpers/helpers';
+import { getTodayDate } from '../helpers/helpers';
 export class CardWord {
   id: string;
   group: number;
@@ -154,7 +155,7 @@ export class CardWord {
   }
   async addToLearned() {
     difficultWordsService.createWord(this.id, {
-      optional: { isLearned: 'true' },
+      optional: { isLearned: 'true', dateOfAdding: `${getTodayDate()}` },
     });
     state.learnedWords.push(this.id);
   }

@@ -3,8 +3,11 @@ import { startingLoginButton } from '../buttons/startingLoginButtons';
 import { footer } from './footer';
 import { state } from '../storage/state';
 import { getTodayDate } from '../helpers/helpers';
+import { difficultWordsService } from '../services/DifficultWordsService';
+import { JSONValue } from '../types/types';
 class StatsPage {
-  render() {
+  async render() {
+    const learnedWordsQuantity = await this.getAllLearnedDaily();
     document.body.innerHTML = '';
     document.body.append(header.render());
     header.addlisteners();
@@ -35,7 +38,7 @@ class StatsPage {
       <div class="stats-global">
       <div class="stats-global__learned">
         <h3>
-          <b>0</b>
+          <b>${learnedWordsQuantity}</b>
         </h3>
         <p>Изученных слов</p>
       </div>
@@ -166,6 +169,14 @@ class StatsPage {
       result = 0;
     }
     return result;
+  }
+  async getAllLearnedDaily() {
+    const [paginatedResults] =
+      await difficultWordsService.getAllLearnedWordsDaily();
+    const arrLearnedWords = paginatedResults.paginatedResults;
+    const arr = arrLearnedWords.map((elem: JSONValue) => elem._id);
+    console.log(arr);
+    return arr.length;
   }
 }
 export const statsPage = new StatsPage();

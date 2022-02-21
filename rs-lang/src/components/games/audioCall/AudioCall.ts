@@ -80,22 +80,23 @@ class AudioCall {
   getAnswers() {
     this.answers = [];
     this.answerRight = this.wordsArr[this.currentQuestion].wordTranslate;
-    for (let i = 0; i < 4; i++) {
-      const randomAnswer = this.getWrongAnswer(this.currentQuestion);
-      let answerWrong = this.wordsArr[randomAnswer].wordTranslate;
-      this.answers.push(answerWrong);
-    }
     this.answers.push(this.answerRight);
+    for (let i = 0; i < 4; i++) {
+      this.getWrongAnswers();
+    }
     this.answers.sort(() => Math.round(Math.random() * 100) - 50);
     console.log(this.answerRight, this.answers);
 
     return this.answers;
   }
-  getWrongAnswer(currentNum: number): number {
+  getWrongAnswers() {
     const randomNum = getRandomInRange(0, 19);
-    return randomNum !== currentNum
-      ? randomNum
-      : this.getWrongAnswer(this.currentQuestion);
+    let answerWrong = this.wordsArr[randomNum].wordTranslate;
+    if (!this.answers.includes(answerWrong)) {
+      this.answers.push(answerWrong);
+    } else {
+      this.getWrongAnswers();
+    }
   }
   isAnswerRight(word: string) {
     if (word === this.answerRight) {

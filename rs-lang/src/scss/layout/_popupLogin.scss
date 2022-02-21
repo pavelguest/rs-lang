@@ -1,0 +1,61 @@
+.popup-login {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 360px;
+  margin: auto;
+  transform: translate(-50%, -50%);
+}
+.close-popup {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 2;
+  width: 15px;
+  height: 15px;
+  background: url("./../images/popup__close.svg");
+  background-size: 100% 100%;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.popup-wrapper {
+  position: relative;
+  z-index: 1;
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+  background: white;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.popup-wrapper input {
+  width: 100%;
+  margin: 0 0 15px;
+  padding: 15px;
+  font-size: 15px;
+  font-family: "Roboto", sans-serif;
+  background: #f2f2f2;
+  border: 0;
+  outline: 0;
+}
+.login-text {
+  margin: 15px 0 0;
+  font-size: 14px;
+  color: #b3b3b3;
+
+  & a {
+    margin-left: 5px;
+    color: #4caf50;
+    cursor: pointer;
+  }
+}
+
+.login-error,
+.create-error {
+  margin: 0 auto;
+  padding: 10px 0;
+  font-size: 15px;
+  color: rgb(185, 19, 19);
+}

@@ -1,0 +1,113 @@
+.sprint-wrapper,
+.audio-call-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 81px);
+}
+.sprint__title,
+.audio-call__title {
+  padding: 10px;
+  font-size: 50px;
+  text-align: center;
+  color: #ffffff;
+  text-transform: uppercase;
+  background-color: #47b39d;
+  box-shadow: 0 0 10px 0 rgb(0 0 0 / 20%);
+}
+.sprint-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  width: 400px;
+  height: 400px;
+  padding: 20px;
+  box-shadow: 0 0 10px 0 rgb(0 0 0 / 20%);
+
+  row-gap: 20px;
+}
+.timer-container {
+  margin-bottom: 20px;
+  padding: 10px;
+  font-size: 40px;
+  box-shadow: 0 0 10px 0 rgb(0 0 0 / 20%);
+}
+
+.sprint__score {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  font-size: 40px;
+}
+.sprint__question {
+  font-size: 40px;
+}
+.sprint__answer {
+  font-size: 30px;
+}
+.answer-buttons__container {
+  display: flex;
+  padding: 10px 20px;
+  column-gap: 30px;
+}
+.sprint__pagination-container {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: flex;
+  padding: 5px 0;
+  column-gap: 15px;
+}
+.sprint__answer-pagination {
+  width: 35px;
+  height: 35px;
+  background-color: rgb(209, 221, 217);
+}
+.settings-buttons__container {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  display: flex;
+  column-gap: 20px;
+}
+:fullscreen {
+  background-color: #ffffff;
+}
+.game__result-wrapper {
+  padding: 20px;
+  box-shadow: 0 0 10px 0 rgb(0 0 0 / 20%);
+}
+.game__result-container {
+  width: 500px;
+  height: 600px;
+  margin-bottom: 20px;
+  padding: 20px;
+  overflow-y: scroll;
+  box-shadow: 0 0 10px 0 rgb(0 0 0 / 20%);
+}
+.result-container__answers {
+  margin: 10px 0;
+}
+.answer-title {
+  margin: 5px 0;
+  font-weight: 500;
+  font-size: 24px;
+  border-bottom: 2px solid grey;
+}
+.answer__result {
+  display: flex;
+  column-gap: 20px;
+}
+.game__result-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.game__result-score {
+  margin-bottom: 20px;
+  font-weight: 500;
+  font-size: 24px;
+}

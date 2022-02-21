@@ -57,6 +57,14 @@ class SprintViewWrapper {
       this.sprintView.stopGameTimer();
       this.sprintView.sprint.countTimerGame = 59;
       this.sprintView.sprint.score = 0;
+      this.sprintView.sprint.currentQuestion = 0;
+      this.sprintView.sprint.generalScore = 0;
+
+      this.sprintView.sprint.numberAllAnswers = 0;
+      this.sprintView.sprint.numberOfCorrectAnswers = 0;
+      this.sprintView.sprint.longestChain = 0;
+      this.sprintView.sprint.idLearnWords = [];
+      this.sprintView.sprint.learnWords = [];
     }
     startingPage.render();
   }

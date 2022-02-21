@@ -243,11 +243,16 @@
 }
 
 .audio-call__answer,
-.button__dont-know {
+.button__dont-know,
+.popup__button-back {
   width: 180px;
   height: 50px;
   &:hover {
     background-color: rgb(170, 255, 255);
   }
+}
+.popup__button-back {
+  font-size: 20px;
+  background-color: #59afd1;
 }
 

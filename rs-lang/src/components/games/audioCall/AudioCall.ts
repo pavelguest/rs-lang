@@ -6,6 +6,7 @@ import {
   wrongAnswerSound,
 } from '../../helpers/sounds';
 import { worldsRepository } from '../../services/WordsRepository';
+import { storage } from '../../storage/localstorage';
 import { state } from '../../storage/state';
 import { ILearnWords, IWords } from '../../types/types';
 import { gamesStatistic } from '../GamesStatistic';
@@ -13,6 +14,7 @@ import ResultGamePopup from '../ResultGamePopup';
 import { wordsStatistic } from '../WordsStatistic';
 
 class AudioCall {
+  id: string = 'id';
   wordsArr: IWords[] = [];
   learnWords: ILearnWords[] = [];
   question: HTMLAudioElement | undefined;
@@ -34,6 +36,9 @@ class AudioCall {
     const data = await worldsRepository.all(page, group);
     this.wordsArr = [...data];
   }
+  async getWordsArrForUser(data: IWords[]) {
+    this.wordsArr = [...data];
+  }
   setLongestChain(isRight: boolean) {
     if (isRight) {
       this.currentLongestChain += 1;
@@ -47,13 +52,15 @@ class AudioCall {
     }
   }
   isEndQuestionsGame() {
-    if (this.currentQuestion === 20) {
-      gamesStatistic.setStatistic('audioCall', {
-        newWords: [...state.newAudioCallWords],
-        numberAllAnswer: this.numberAllAnswers,
-        numberCorrectAnswer: this.numberOfCorrectAnswers,
-        chain: this.longestChain,
-      });
+    if (this.currentQuestion === this.wordsArr.length) {
+      if (storage.isAuthorised) {
+        gamesStatistic.setStatistic('audioCall', {
+          newWords: [...state.newAudioCallWords],
+          numberAllAnswer: this.numberAllAnswers,
+          numberCorrectAnswer: this.numberOfCorrectAnswers,
+          chain: this.longestChain,
+        });
+      }
 
       const popup = new ResultGamePopup('audioCall').render(this.learnWords, 0);
       document.querySelector('.audio-call-wrapper')!.append(popup);
@@ -90,7 +97,7 @@ class AudioCall {
     return this.answers;
   }
   getWrongAnswers() {
-    const randomNum = getRandomInRange(0, 19);
+    const randomNum = getRandomInRange(0, this.wordsArr.length - 1);
     let answerWrong = this.wordsArr[randomNum].wordTranslate;
     if (!this.answers.includes(answerWrong)) {
       this.answers.push(answerWrong);
@@ -99,6 +106,7 @@ class AudioCall {
     }
   }
   isAnswerRight(word: string) {
+    const idNumber = this.id !== 'id' ? '_id' : 'id';
     if (word === this.answerRight) {
       soundPlay(rightAnswerSound);
       this.isAnswer = true;
@@ -109,16 +117,18 @@ class AudioCall {
     }
     this.numberAllAnswers += 1;
     this.setLongestChain(this.isAnswer);
-    gamesStatistic.setNewWordsGame(
-      this.wordsArr[this.currentQuestion].id,
-      'AudioCall'
-    );
-    wordsStatistic.setAnswerWords(
-      this.wordsArr[this.currentQuestion].id,
-      this.isAnswer
-    );
+    if (storage.isAuthorised) {
+      gamesStatistic.setNewWordsGame(
+        this.wordsArr[this.currentQuestion][idNumber],
+        'AudioCall'
+      );
+      wordsStatistic.setAnswerWords(
+        this.wordsArr[this.currentQuestion][idNumber],
+        this.isAnswer
+      );
+    }
     this.learnWords.push({
-      id: this.wordsArr[this.currentQuestion].id,
+      id: this.wordsArr[this.currentQuestion][idNumber],
       word: this.wordsArr[this.currentQuestion].word,
       audio: this.wordsArr[this.currentQuestion].audio,
       wordTranslate: this.wordsArr[this.currentQuestion].wordTranslate,
